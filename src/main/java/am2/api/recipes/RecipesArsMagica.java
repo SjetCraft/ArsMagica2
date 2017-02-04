@@ -7,6 +7,7 @@ import com.google.common.collect.Lists;
 
 import am2.blocks.CraftingEssenceExtractor;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 public abstract class RecipesArsMagica{
@@ -64,6 +65,11 @@ public abstract class RecipesArsMagica{
 		for (int i = 0; i < matrix.getSizeInventory(); ++i){
 			items[i] = matrix.getStackInSlot(i);
 		}
+		return matchingRecipe(items, null);
+	}
+	
+	public ItemStack matchingRecipe(Item item){
+		ItemStack[] items = new ItemStack[]{new ItemStack(item)};
 		return matchingRecipe(items, null);
 	}
 

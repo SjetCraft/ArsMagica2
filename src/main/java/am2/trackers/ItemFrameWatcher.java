@@ -5,16 +5,18 @@ import java.util.HashMap;
 import java.util.Random;
 
 import am2.ArsMagica2;
+import am2.api.recipes.RecipesEssencePool;
 import am2.defs.BlockDefs;
 import am2.defs.ItemDefs;
 import am2.particles.AMParticle;
 import am2.particles.ParticleApproachEntity;
 import am2.particles.ParticleColorShift;
 import am2.particles.ParticleHoldPosition;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.item.EntityItemFrame;
 import net.minecraft.init.Items;
-import net.minecraft.item.ItemBook;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -26,6 +28,8 @@ public class ItemFrameWatcher{
 	private final ArrayList<EntityItemFrameComparator> queuedRemoveFrames;
 
 	private static final int processTime = 800;
+	
+	RecipesEssencePool poolRecipes = new RecipesEssencePool();
 
 	public ItemFrameWatcher(){
 		watchedFrames = new HashMap<EntityItemFrameComparator, Integer>();
@@ -88,7 +92,9 @@ public class ItemFrameWatcher{
 
 						if (time >= processTime){
 							if (!frame.worldObj.isRemote){
-								frame.setDisplayedItem(new ItemStack(ItemDefs.arcaneCompendium));
+								EntityItem output = new EntityItem(frame.worldObj, Math.floor(frame.posX) + 0.5, frame.posY, Math.floor(frame.posZ) + 0.5,poolRecipes.matchingRecipe(frame.getDisplayedItem().getItem()));
+								frame.setDead();
+								frame.worldObj.spawnEntityInWorld(output);
 								shouldRemove = true;
 								break;
 							}
@@ -108,17 +114,17 @@ public class ItemFrameWatcher{
 	}
 
 	private boolean frameIsValid(EntityItemFrame frame){
-		return frame != null && !frame.isDead && frame.getDisplayedItem() != null && frame.getDisplayedItem().getItem() instanceof ItemBook;
+		return frame != null && !frame.isDead && frame.getDisplayedItem() != null && poolRecipes.matchingRecipe(frame.getDisplayedItem().getItem()) != null;
 	}
 
 	private void updateQueuedChanges(){
-
+		
 		//safe copy to avoid CME
 		EntityItemFrameComparator[] toAdd = queuedAddFrames.toArray(new EntityItemFrameComparator[queuedAddFrames.size()]);
 		queuedAddFrames.clear();
 
 		for (EntityItemFrameComparator comp : toAdd){
-			if (comp.frame != null && (comp.frame.getDisplayedItem() == null || comp.frame.getDisplayedItem().getItem() != ItemDefs.arcaneCompendium))
+			if (comp.frame != null && (comp.frame.getDisplayedItem() == null || comp.frame.getDisplayedItem().getItem() != poolRecipes.matchingRecipe(comp.frame.getDisplayedItem().getItem()).getItem()))
 				watchedFrames.put(comp, 0);
 		}
 
@@ -131,7 +137,7 @@ public class ItemFrameWatcher{
 			if (time != null && time >= processTime &&
 					comp.frame != null && !comp.frame.isDead && comp.frame.worldObj.isRemote &&
 					(comp.frame.getDisplayedItem() != null &&
-							(comp.frame.getDisplayedItem().getItem() == Items.BOOK || comp.frame.getDisplayedItem().getItem() == ItemDefs.arcaneCompendium))){
+							(comp.frame.getDisplayedItem().getItem() == poolRecipes.matchingRecipe(comp.frame.getDisplayedItem().getItem()).getItem()))){
 				spawnCompendiumCompleteParticles(comp.frame);
 			}
 			watchedFrames.remove(comp);

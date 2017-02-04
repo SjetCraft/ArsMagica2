@@ -552,11 +552,6 @@ public class AMRecipes {
 						new ItemStack(ItemDefs.arcaneCompendium)
 				});
 
-		GameRegistry.addShapelessRecipe(new ItemStack(ItemDefs.journal), new Object[]{
-				new ItemStack(ItemDefs.essence, 1, ArsMagicaAPI.getAffinityRegistry().getId(Affinity.ARCANE)),
-				new ItemStack(Items.WRITABLE_BOOK)
-		});
-
 		GameRegistry.addShapelessRecipe(
 				new ItemStack(ItemDefs.manaPotionBundle, 1, (0 << 8) + 3), new Object[]{
 						new ItemStack(ItemDefs.lesserManaPotion, 1, OreDictionary.WILDCARD_VALUE),
