@@ -472,7 +472,7 @@ public class TileEntityFlickerHabitat extends TileEntityFlickerControllerBase im
 
 	@Override
 	public ItemStack getStackInSlot(int i){
-		if (i <= getSizeInventory() && flickerJar.isEmpty()){
+		if (i <= getSizeInventory() && !flickerJar.isEmpty()){
 			return flickerJar;
 		}
 
