@@ -35,7 +35,7 @@ public abstract class BlockAMPowered extends BlockAMContainer{
 			return false;
 		}
 
-		if (player.getHeldItemMainhand() != null && (player.getHeldItemMainhand().getItem() == ItemDefs.spellStaffMagitech || player.getHeldItemMainhand().getItem() == ItemDefs.crystalWrench)){
+		if (!player.getHeldItemMainhand().isEmpty() && (player.getHeldItemMainhand().getItem() == ItemDefs.spellStaffMagitech || player.getHeldItemMainhand().getItem() == ItemDefs.crystalWrench)){
 			return true;
 		}
 

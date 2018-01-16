@@ -246,7 +246,7 @@ public class TileEntityEssenceRefiner extends TileEntityAMPoweredContainer imple
 			inventory.set(i, ItemStack.EMPTY);
 			return itemstack;
 		}else{
-			return null;
+			return ItemStack.EMPTY;
 		}
 	}
 

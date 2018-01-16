@@ -49,7 +49,7 @@ public class TileEntityKeystoneDoor extends TileEntity implements IInventory, IK
 	@Override
 	public ItemStack getStackInSlot(int slot){
 		if (slot >= inventory.size())
-			return null;
+			return ItemStack.EMPTY;
 		return inventory.get(slot);
 	}
 
@@ -67,7 +67,7 @@ public class TileEntityKeystoneDoor extends TileEntity implements IInventory, IK
 			}
 			return itemstack1;
 		}else{
-			return null;
+			return ItemStack.EMPTY;
 		}
 	}
 
@@ -78,7 +78,7 @@ public class TileEntityKeystoneDoor extends TileEntity implements IInventory, IK
 			inventory.set(i, ItemStack.EMPTY);
 			return itemstack;
 		}else{
-			return null;
+			return ItemStack.EMPTY;
 		}
 	}
 

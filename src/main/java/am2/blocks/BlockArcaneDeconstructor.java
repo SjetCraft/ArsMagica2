@@ -84,7 +84,7 @@ public class BlockArcaneDeconstructor extends BlockAMPowered{
 		if (deconstructor == null) return;
 		for (int l = 0; l < deconstructor.getSizeInventory() - 3; l++){
 			ItemStack itemstack = deconstructor.getStackInSlot(l);
-			if (itemstack == null){
+			if (itemstack.isEmpty()){
 				continue;
 			}
 			float f = world.rand.nextFloat() * 0.8F + 0.1F;

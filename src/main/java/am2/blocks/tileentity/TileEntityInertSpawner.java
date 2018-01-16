@@ -60,37 +60,37 @@ public class TileEntityInertSpawner extends TileEntityAMPower implements ISidedI
 
 	@Override
 	public ItemStack getStackInSlot(int i){
-		if (i < getSizeInventory() && phylactery != null){
+		if (i < getSizeInventory() && !phylactery.isEmpty()){
 			return phylactery;
 		}
 
-		return null;
+		return ItemStack.EMPTY;
 	}
 
 	@Override
 	public ItemStack decrStackSize(int i, int j){
-		if (i < getSizeInventory() && phylactery != null){
+		if (i < getSizeInventory() && !phylactery.isEmpty()){
 			ItemStack jar = phylactery;
-			phylactery = null;
+			phylactery = ItemStack.EMPTY;
 			return jar;
 		}
-		return null;
+		return ItemStack.EMPTY;
 	}
 
 	@Override
 	public ItemStack removeStackFromSlot(int i){
-		if (i < getSizeInventory() && phylactery != null){
+		if (i < getSizeInventory() && !phylactery.isEmpty()){
 			ItemStack jar = phylactery;
-			phylactery = null;
+			phylactery = ItemStack.EMPTY;
 			return jar;
 		}
-		return null;
+		return ItemStack.EMPTY;
 	}
 
 	@Override
 	public void setInventorySlotContents(int i, ItemStack itemstack){
 		phylactery = itemstack;
-		if (itemstack != null && itemstack.getCount() > getInventoryStackLimit()){
+		if (!itemstack.isEmpty() && itemstack.getCount() > getInventoryStackLimit()){
 			itemstack.setCount(getInventoryStackLimit());
 		}
 
@@ -125,7 +125,7 @@ public class TileEntityInertSpawner extends TileEntityAMPower implements ISidedI
 
 	@Override
 	public boolean isItemValidForSlot(int i, ItemStack stack){
-		return i == 0 && stack != null && stack.getItem() == ItemDefs.crystalPhylactery;
+		return i == 0 && !stack.isEmpty() && stack.getItem() == ItemDefs.crystalPhylactery;
 	}
 
 	@Override
@@ -142,8 +142,8 @@ public class TileEntityInertSpawner extends TileEntityAMPower implements ISidedI
 	public boolean canInsertItem(int i, ItemStack stack, EnumFacing face){
 		return
 				i == 0 &&
-						this.getStackInSlot(0) == null &&
-						stack != null &&
+						this.getStackInSlot(0) == ItemStack.EMPTY &&
+						!stack.isEmpty() &&
 						stack.getItem() == ItemDefs.crystalPhylactery &&
 						stack.getCount() == 1 &&
 						((ItemCrystalPhylactery)stack.getItem()).isFull(stack);
@@ -170,7 +170,7 @@ public class TileEntityInertSpawner extends TileEntityAMPower implements ISidedI
 	public NBTTagCompound writeToNBT(NBTTagCompound nbttagcompound){
 		super.writeToNBT(nbttagcompound);
 
-		if (phylactery != null){
+		if (!phylactery.isEmpty()){
 			NBTTagCompound phy = new NBTTagCompound();
 			phylactery.writeToNBT(phy);
 			nbttagcompound.setTag("phylactery", phy);
@@ -196,7 +196,7 @@ public class TileEntityInertSpawner extends TileEntityAMPower implements ISidedI
 	public void update(){
 		super.update();
 
-		if (!world.isRemote && phylactery != null && phylactery.getItem() instanceof ItemCrystalPhylactery && ((ItemCrystalPhylactery)phylactery.getItem()).isFull(phylactery) && world.isBlockIndirectlyGettingPowered(pos) == 0){
+		if (!world.isRemote && !phylactery.isEmpty() && phylactery.getItem() instanceof ItemCrystalPhylactery && ((ItemCrystalPhylactery)phylactery.getItem()).isFull(phylactery) && world.isBlockIndirectlyGettingPowered(pos) == 0){
 			if (this.powerConsumed < TileEntityInertSpawner.SUMMON_REQ){
 				this.powerConsumed += PowerNodeRegistry.For(world).consumePower(
 						this,

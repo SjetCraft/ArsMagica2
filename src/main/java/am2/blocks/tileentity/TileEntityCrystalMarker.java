@@ -305,37 +305,37 @@ public class TileEntityCrystalMarker extends TileEntity implements IInventory, I
 
 	@Override
 	public ItemStack decrStackSize(int i, int j){
-		if (filterItems[i] != null){
+		if (!filterItems[i].isEmpty()){
 			if (filterItems[i].getCount() <= j){
 				ItemStack itemstack = filterItems[i];
-				filterItems[i] = null;
+				filterItems[i] = ItemStack.EMPTY;
 				return itemstack;
 			}
 			ItemStack itemstack1 = filterItems[i].splitStack(j);
 			if (filterItems[i].getCount() == 0){
-				filterItems[i] = null;
+				filterItems[i] = ItemStack.EMPTY;
 			}
 			return itemstack1;
 		}else{
-			return null;
+			return ItemStack.EMPTY;
 		}
 	}
 
 	@Override
 	public ItemStack removeStackFromSlot(int i){
-		if (filterItems[i] != null){
+		if (!filterItems[i].isEmpty()){
 			ItemStack itemstack = filterItems[i];
-			filterItems[i] = null;
+			filterItems[i] = ItemStack.EMPTY;
 			return itemstack;
 		}else{
-			return null;
+			return ItemStack.EMPTY;
 		}
 	}
 
 	@Override
 	public void setInventorySlotContents(int i, ItemStack itemstack){
 		filterItems[i] = itemstack;
-		if (itemstack != null && itemstack.getCount() > getInventoryStackLimit()){
+		if (!itemstack.isEmpty() && itemstack.getCount() > getInventoryStackLimit()){
 			itemstack.setCount(getInventoryStackLimit());
 		}
 	}

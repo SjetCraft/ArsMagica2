@@ -61,7 +61,7 @@ public class ContainerCalefactor extends AM2Container{
 			itemstack = itemstack1.copy();
 			if (i < PLAYER_INVENTORY_START){
 				if (!mergeItemStack(itemstack1, PLAYER_INVENTORY_START, PLAYER_ACTION_BAR_END, true)){
-					return null;
+					return ItemStack.EMPTY;
 				}
 			}else if (i >= PLAYER_INVENTORY_START && i < PLAYER_ACTION_BAR_START) //from player inventory
 			{

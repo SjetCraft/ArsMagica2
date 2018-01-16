@@ -119,7 +119,7 @@ public class BlockParticleEmitter extends BlockAMContainer{
 		if (worldIn.isRemote) {
 			TileEntity te = worldIn.getTileEntity(pos);
 			if (te != null && te instanceof TileEntityParticleEmitter) {
-				if (heldItem != null
+				if (!heldItem.isEmpty()
 						&& heldItem.getItem() == ItemDefs.crystalWrench) {
 					if (ItemCrystalWrench.getMode(heldItem) == 0) {
 						ArsMagica2.proxy.openParticleBlockGUI(worldIn, playerIn, (TileEntityParticleEmitter) te);

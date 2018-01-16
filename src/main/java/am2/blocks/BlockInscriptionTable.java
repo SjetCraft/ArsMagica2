@@ -97,9 +97,9 @@ public class BlockInscriptionTable extends BlockAMSpecialRenderContainer{
 		}
 
 		ItemStack curItem = playerIn.getHeldItem(hand);
-		if (curItem != null && curItem.getItem() == ItemDefs.inscriptionUpgrade){
+		if (!curItem.isEmpty() && curItem.getItem() == ItemDefs.inscriptionUpgrade){
 			if (te.getUpgradeState() == curItem.getItemDamage()){
-				playerIn.inventory.setInventorySlotContents(playerIn.inventory.currentItem, null);
+				playerIn.inventory.setInventorySlotContents(playerIn.inventory.currentItem, ItemStack.EMPTY);
 				te.incrementUpgradeState();
 				tealt.incrementUpgradeState();
 				return true;
@@ -134,7 +134,7 @@ public class BlockInscriptionTable extends BlockAMSpecialRenderContainer{
 		if (!world.isRemote && !state.getValue(LEFT)){
 			for (int l = 0; l < insc.getSizeInventory(); l++){
 				ItemStack itemstack = insc.getStackInSlot(l);
-				if (itemstack == null){
+				if (itemstack.isEmpty()){
 					continue;
 				}
 				spawnItemOnBreak(world, pos, itemstack);

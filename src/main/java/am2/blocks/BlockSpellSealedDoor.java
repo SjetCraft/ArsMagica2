@@ -93,7 +93,7 @@ public class BlockSpellSealedDoor extends BlockDoor implements ITileEntityProvid
 		TileEntitySpellSealedDoor door = (TileEntitySpellSealedDoor)worldIn.getTileEntity(pos);
 		if (door == null) return;
 		ItemStack itemstack = door.getStackInSlot(3);
-		if (itemstack == null){
+		if (itemstack.isEmpty()){
 			return;
 		}
 		float f = worldIn.rand.nextFloat() * 0.8F + 0.1F;

@@ -86,14 +86,14 @@ public class BlockMagiciansWorkbench extends BlockAMSpecialRenderContainer{
 
 				super.onBlockActivated(worldIn, pos, state, playerIn, hand, side, hitX, hitY, hitZ);
 
-				if (heldItem != null && heldItem.getItem() == ItemDefs.workbenchUpgrade){
+				if (!heldItem.isEmpty() && heldItem.getItem() == ItemDefs.workbenchUpgrade){
 					((TileEntityMagiciansWorkbench)te).setUpgradeStatus(TileEntityMagiciansWorkbench.UPG_CRAFT, true);
 
 					if (!worldIn.isRemote){
 						heldItem.shrink(-1);
 
 						if (heldItem.getCount() <= 0)
-							heldItem = null;
+							heldItem = ItemStack.EMPTY;
 
 						playerIn.setItemStackToSlot(hand == EnumHand.MAIN_HAND ? EntityEquipmentSlot.MAINHAND : EntityEquipmentSlot.OFFHAND, heldItem);
 					}

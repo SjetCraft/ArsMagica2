@@ -422,7 +422,7 @@ public class TileEntityFlickerHabitat extends TileEntityFlickerControllerBase im
 	}
 
 	public int getCrystalColor(){
-		if (this.flickerJar == null)
+		if (this.flickerJar.isEmpty())
 			return 0;
 
 		if (this.flickerJar.getItem() == ItemDefs.flickerJar)
@@ -472,37 +472,37 @@ public class TileEntityFlickerHabitat extends TileEntityFlickerControllerBase im
 
 	@Override
 	public ItemStack getStackInSlot(int i){
-		if (i <= getSizeInventory() && flickerJar != null){
+		if (i <= getSizeInventory() && flickerJar.isEmpty()){
 			return flickerJar;
 		}
 
-		return null;
+		return ItemStack.EMPTY;
 	}
 
 	@Override
 	public ItemStack decrStackSize(int i, int j){
-		if (i <= getSizeInventory() && flickerJar != null){
+		if (i <= getSizeInventory() && !flickerJar.isEmpty()){
 			ItemStack jar = flickerJar;
-			flickerJar = null;
+			flickerJar = ItemStack.EMPTY;
 			return jar;
 		}
-		return null;
+		return ItemStack.EMPTY;
 	}
 
 	@Override
 	public ItemStack removeStackFromSlot(int i){
-		if (i <= getSizeInventory() && flickerJar != null){
+		if (i <= getSizeInventory() && !flickerJar.isEmpty()){
 			ItemStack jar = flickerJar;
-			flickerJar = null;
+			flickerJar = ItemStack.EMPTY;
 			return jar;
 		}
-		return null;
+		return ItemStack.EMPTY;
 	}
 
 	@Override
 	public void setInventorySlotContents(int i, ItemStack itemstack){
 		flickerJar = itemstack;
-		if (itemstack != null && itemstack.getCount() > getInventoryStackLimit()){
+		if (!itemstack.isEmpty() && itemstack.getCount() > getInventoryStackLimit()){
 			itemstack.setCount(getInventoryStackLimit());
 		}
 
@@ -551,7 +551,7 @@ public class TileEntityFlickerHabitat extends TileEntityFlickerControllerBase im
 	}
 
 	private void setOperatorBasedOnFlicker(){
-		if (flickerJar != null && flickerJar.getItem() == ItemDefs.flickerFocus){
+		if (!flickerJar.isEmpty() && flickerJar.getItem() == ItemDefs.flickerFocus){
 			this.setOperator(ArsMagicaAPI.getFlickerFocusRegistry().getObjectById(flickerJar.getItemDamage()));
 		}else{
 			this.setOperator(null);

@@ -58,7 +58,7 @@ public class BlockArmorInfuser extends BlockAMPowered{
 		if (imbuer == null) return;
 		for (int l = 0; l < imbuer.getSizeInventory() - 3; l++){
 			ItemStack itemstack = imbuer.getStackInSlot(l);
-			if (itemstack == null){
+			if (itemstack.isEmpty()){
 				continue;
 			}
 			float f = world.rand.nextFloat() * 0.8F + 0.1F;

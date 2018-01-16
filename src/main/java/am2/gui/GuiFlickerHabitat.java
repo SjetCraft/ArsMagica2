@@ -55,7 +55,7 @@ public class GuiFlickerHabitat extends GuiContainer{
 
 		ItemStack stack = flickerHabitat.getStackInSlot(0);
 
-		if (stack == null) return;
+		if (stack.isEmpty()) return;
 
 		AbstractFlickerFunctionality func = ArsMagicaAPI.getFlickerFocusRegistry().getObjectById(stack.getItemDamage());
 

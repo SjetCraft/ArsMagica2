@@ -66,7 +66,7 @@ public class BlockArcaneReconstructor extends BlockAMPowered{
 			if (reconstructor == null) return;
 			for (int l = 0; l < reconstructor.getSizeInventory() - 3; l++){
 				ItemStack itemstack = reconstructor.getStackInSlot(l);
-				if (itemstack == null){
+				if (itemstack.isEmpty()){
 					continue;
 				}
 				float f = world.rand.nextFloat() * 0.8F + 0.1F;

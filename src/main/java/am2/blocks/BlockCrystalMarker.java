@@ -126,7 +126,7 @@ public class BlockCrystalMarker extends BlockAMContainer{
 			}
 
 			return false;
-		}else if (heldItem != null && heldItem.getItem() == ItemDefs.spellStaffMagitech){
+		}else if (!heldItem.isEmpty() && heldItem.getItem() == ItemDefs.spellStaffMagitech){
 			//if we're here, we are changing the crystal's priority level
 			//swing the item, first off.
 			player.swingArm(hand);

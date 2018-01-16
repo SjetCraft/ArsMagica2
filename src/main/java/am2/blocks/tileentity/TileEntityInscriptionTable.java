@@ -313,7 +313,7 @@ public class TileEntityInscriptionTable extends TileEntity implements IInventory
 			inscriptionTableItemStacks.set(i, ItemStack.EMPTY);
 			return itemstack;
 		}else{
-			return null;
+			return ItemStack.EMPTY;
 		}
 	}
 
@@ -693,7 +693,7 @@ public class TileEntityInscriptionTable extends TileEntity implements IInventory
 					Object o = recipeItems[i];
 					String materialkey = "";
 					int qty = 1;
-					ItemStack recipeStack = null;
+					ItemStack recipeStack = ItemStack.EMPTY;
 					if (o instanceof ItemStack){
 						materialkey = ((ItemStack)o).getDisplayName();
 						recipeStack = (ItemStack)o;
@@ -731,7 +731,7 @@ public class TileEntityInscriptionTable extends TileEntity implements IInventory
 
 						}else{
 							List<ItemStack> ores = OreDictionary.getOres((String)o);
-							recipeStack = ores.size() > 0 ? ores.get(1) : null;
+							recipeStack = ores.size() > 0 ? ores.get(1) : ItemStack.EMPTY;
 							materialkey = (String)o;
 						}
 					}

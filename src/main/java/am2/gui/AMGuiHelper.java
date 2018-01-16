@@ -287,7 +287,7 @@ public class AMGuiHelper{
 
 	public static void DrawItemAtXY(ItemStack stack, float x, float y, float zLevel, float scale){
 		Minecraft.getMinecraft().renderEngine.bindTexture(LOCATION_BLOCKS_TEXTURE);
-		if (stack == null)
+		if (stack.isEmpty())
 			return;
 		GlStateManager.pushAttrib();
 		GlStateManager.color(1, 1, 1, 1);

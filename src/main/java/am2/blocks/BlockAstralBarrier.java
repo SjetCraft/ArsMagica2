@@ -74,7 +74,7 @@ public class BlockAstralBarrier extends BlockAMPowered{
 		if (barrier == null) return;
 		for (int l = 0; l < barrier.getSizeInventory() - 3; l++){
 			ItemStack itemstack = barrier.getStackInSlot(l);
-			if (itemstack == null){
+			if (itemstack.isEmpty()){
 				continue;
 			}
 			float f = world.rand.nextFloat() * 0.8F + 0.1F;

@@ -40,7 +40,7 @@ public class BlockFlickerHabitat extends BlockAMPowered{
 		
 		ItemStack heldItem = playerIn.getHeldItem(hand);
 		
-		if (heldItem != null && heldItem.getItem() == ItemDefs.crystalWrench){
+		if (!heldItem.isEmpty() && heldItem.getItem() == ItemDefs.crystalWrench){
 			if (worldIn.isRemote){
 				playerIn.swingArm(hand);
 			}

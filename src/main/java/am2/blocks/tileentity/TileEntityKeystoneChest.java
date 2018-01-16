@@ -119,7 +119,7 @@ public class TileEntityKeystoneChest extends TileEntityLockableLoot implements I
 			}
 			return itemstack1;
 		}else{
-			return null;
+			return ItemStack.EMPTY;
 		}
 	}
 
@@ -130,7 +130,7 @@ public class TileEntityKeystoneChest extends TileEntityLockableLoot implements I
 			inventory.set(i, ItemStack.EMPTY);
 			return itemstack;
 		}else{
-			return null;
+			return ItemStack.EMPTY;
 		}
 	}
 

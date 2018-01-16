@@ -161,43 +161,43 @@ public class TileEntitySummoner extends TileEntityAMPower implements IInventory,
 
 	@Override
 	public ItemStack getStackInSlot(int i){
-		if (i < 0 || i >= getSizeInventory()) return null;
+		if (i < 0 || i >= getSizeInventory()) return ItemStack.EMPTY;
 		return inventory[i];
 	}
 
 	@Override
 	public ItemStack decrStackSize(int i, int j){
-		if (inventory[i] != null){
+		if (!inventory[i].isEmpty()){
 			if (inventory[i].getCount() <= j){
 				ItemStack itemstack = inventory[i];
-				inventory[i] = null;
+				inventory[i] = ItemStack.EMPTY;
 				return itemstack;
 			}
 			ItemStack itemstack1 = inventory[i].splitStack(j);
 			if (inventory[i].getCount() == 0){
-				inventory[i] = null;
+				inventory[i] = ItemStack.EMPTY;
 			}
 			return itemstack1;
 		}else{
-			return null;
+			return ItemStack.EMPTY;
 		}
 	}
 
 	@Override
 	public ItemStack removeStackFromSlot(int i){
-		if (inventory[i] != null){
+		if (!inventory[i].isEmpty()){
 			ItemStack itemstack = inventory[i];
-			inventory[i] = null;
+			inventory[i] = ItemStack.EMPTY;
 			return itemstack;
 		}else{
-			return null;
+			return ItemStack.EMPTY;
 		}
 	}
 
 	@Override
 	public void setInventorySlotContents(int i, ItemStack itemstack){
 		inventory[i] = itemstack;
-		if (itemstack != null && itemstack.getCount() > getInventoryStackLimit()){
+		if (!itemstack.isEmpty() && itemstack.getCount() > getInventoryStackLimit()){
 			itemstack.setCount(getInventoryStackLimit());
 		}
 	}
@@ -260,7 +260,7 @@ public class TileEntitySummoner extends TileEntityAMPower implements IInventory,
 
 		NBTTagList nbttaglist = new NBTTagList();
 		for (int i = 0; i < inventory.length; i++){
-			if (inventory[i] != null){
+			if (!inventory[i].isEmpty()){
 				String tag = String.format("ArrayIndex", i);
 				NBTTagCompound nbttagcompound1 = new NBTTagCompound();
 				nbttagcompound1.setByte(tag, (byte)i);
@@ -276,7 +276,7 @@ public class TileEntitySummoner extends TileEntityAMPower implements IInventory,
 	private int numFociOfType(Class<?> type){
 		int count = 0;
 		for (int i = 0; i < 3; ++i){
-			if (inventory[i] != null && type.isInstance(inventory[i].getItem())){
+			if (!inventory[i].isEmpty() && type.isInstance(inventory[i].getItem())){
 				count++;
 			}
 		}

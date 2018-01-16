@@ -147,7 +147,7 @@ public class BlockEssenceGenerator extends BlockAMPowered{
 		if (obelisk == null) return;
 		for (int l = 0; l < obelisk.getSizeInventory(); l++){
 			ItemStack itemstack = obelisk.getStackInSlot(l);
-			if (itemstack == null){
+			if (itemstack.isEmpty()){
 				continue;
 			}
 			float f = worldIn.rand.nextFloat() * 0.8F + 0.1F;

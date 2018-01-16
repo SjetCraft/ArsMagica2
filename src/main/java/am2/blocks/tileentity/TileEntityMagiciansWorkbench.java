@@ -143,7 +143,7 @@ public class TileEntityMagiciansWorkbench extends TileEntity implements ITickabl
 		}
 
 		for (ItemStack stack : recipeItems)
-			if (stack != null)
+			if (!stack.isEmpty())
 				stack.setCount(1);
 
 		rememberedRecipes.add(new RememberedRecipe(output, recipeItems, is2x2));
@@ -198,7 +198,7 @@ public class TileEntityMagiciansWorkbench extends TileEntity implements ITickabl
 			}
 			return itemstack1;
 		}else{
-			return null;
+			return ItemStack.EMPTY;
 		}
 	}
 
@@ -209,7 +209,7 @@ public class TileEntityMagiciansWorkbench extends TileEntity implements ITickabl
 			inventory.set(i, ItemStack.EMPTY);
 			return itemstack;
 		}else{
-			return null;
+			return ItemStack.EMPTY;
 		}
 	}
 
@@ -346,7 +346,7 @@ public class TileEntityMagiciansWorkbench extends TileEntity implements ITickabl
 					ItemStack component = new ItemStack(componentTAG);
 					components[n] = component;
 				}else{
-					components[n] = null;
+					components[n] = ItemStack.EMPTY;
 				}
 			}
 

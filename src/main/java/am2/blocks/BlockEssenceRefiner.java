@@ -85,7 +85,7 @@ public class BlockEssenceRefiner extends BlockAMPowered{
 			if (refiner == null) return;
 			for (int l = 0; l < refiner.getSizeInventory() - 3; l++){
 				ItemStack itemstack = refiner.getStackInSlot(l);
-				if (itemstack == null){
+				if (itemstack.isEmpty()){
 					continue;
 				}
 				float f = world.rand.nextFloat() * 0.8F + 0.1F;

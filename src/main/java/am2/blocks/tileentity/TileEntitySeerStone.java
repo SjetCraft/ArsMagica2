@@ -398,7 +398,7 @@ public class TileEntitySeerStone extends TileEntityAMPoweredContainer implements
 			}
 			return itemstack1;
 		}else{
-			return null;
+			return ItemStack.EMPTY;
 		}
 	}
 
@@ -409,7 +409,7 @@ public class TileEntitySeerStone extends TileEntityAMPoweredContainer implements
 			inventory.set(i, ItemStack.EMPTY);
 			return itemstack;
 		}else{
-			return null;
+			return ItemStack.EMPTY;
 		}
 	}
 

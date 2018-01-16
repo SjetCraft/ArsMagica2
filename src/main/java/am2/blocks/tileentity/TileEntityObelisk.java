@@ -309,7 +309,7 @@ public class TileEntityObelisk extends TileEntityAMPower implements IMultiblockS
 		nbttagcompound.setInteger("burnTimeRemaining", burnTimeRemaining);
 		nbttagcompound.setInteger("maxBurnTime", maxBurnTime);
 
-		if (inventory != null){
+		if (!inventory.isEmpty()){
 			NBTTagList nbttaglist = new NBTTagList();
 			for (int i = 0; i < inventory.size(); i++){
 				if (!inventory.get(i).isEmpty()){
@@ -392,7 +392,7 @@ public class TileEntityObelisk extends TileEntityAMPower implements IMultiblockS
 			}
 			return itemstack1;
 		}else{
-			return null;
+			return ItemStack.EMPTY;
 		}
 	}
 
@@ -403,7 +403,7 @@ public class TileEntityObelisk extends TileEntityAMPower implements IMultiblockS
 			inventory.set(i, ItemStack.EMPTY);
 			return itemstack;
 		}else{
-			return null;
+			return ItemStack.EMPTY;
 		}
 	}
 

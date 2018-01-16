@@ -48,7 +48,7 @@ public class TileEntityLectern extends TileEntityEnchantmentTable implements ITi
 	public void update(){
 		if (world.isRemote){
 			updateBookRender();
-			if (tooltipStack != null && tickCount % 2 == 0){
+			if (!tooltipStack.isEmpty() && tickCount % 2 == 0){
 				AMParticle particle = (AMParticle)ArsMagica2.proxy.particleManager.spawn(world, "sparkle", pos.getX() + 0.5 + ((world.rand.nextDouble() * 0.2) - 0.1), pos.getY() + 1, pos.getZ() + 0.5 + ((world.rand.nextDouble() * 0.2) - 0.1));
 				if (particle != null){
 					particle.AddParticleController(new ParticleMoveOnHeading(particle, world.rand.nextDouble() * 360, -45 - world.rand.nextInt(90), 0.05f, 1, false));
@@ -136,8 +136,8 @@ public class TileEntityLectern extends TileEntityEnchantmentTable implements ITi
 	}
 
 	public boolean setStack(ItemStack stack){
-		if (stack == null || getValidItems().contains(stack.getItem())){
-			if (stack != null)
+		if (stack.isEmpty() || getValidItems().contains(stack.getItem())){
+			if (!stack.isEmpty())
 				stack.setCount(1);
 			this.stack = stack;
 			if (!this.world.isRemote){
@@ -145,7 +145,7 @@ public class TileEntityLectern extends TileEntityEnchantmentTable implements ITi
 				writer.add(pos.getX());
 				writer.add(pos.getY());
 				writer.add(pos.getZ());
-				if (stack == null){
+				if (stack.isEmpty()){
 					writer.add(false);
 				}else{
 					writer.add(true);
@@ -159,7 +159,7 @@ public class TileEntityLectern extends TileEntityEnchantmentTable implements ITi
 	}
 
 	public boolean hasStack(){
-		return stack != null;
+		return stack != ItemStack.EMPTY;
 	}
 
 	@Override
@@ -203,7 +203,7 @@ public class TileEntityLectern extends TileEntityEnchantmentTable implements ITi
 	@Override
 	public NBTTagCompound writeToNBT(NBTTagCompound comp){
 		super.writeToNBT(comp);
-		if (stack != null){
+		if (!stack.isEmpty()){
 			NBTTagCompound bewk = new NBTTagCompound();
 			stack.writeToNBT(bewk);
 			comp.setTag("placedBook", bewk);

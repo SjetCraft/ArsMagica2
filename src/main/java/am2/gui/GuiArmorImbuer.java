@@ -119,7 +119,7 @@ public class GuiArmorImbuer extends GuiContainer{
 
 		GL11.glColor3f(1, 1, 1);
 		hoveredID = null;
-		if (stack != null){
+		if (!stack.isEmpty()){
 			EntityEquipmentSlot armorType = null;
 			if ( stack.getItem() instanceof ItemArmor) {
 				armorType = ((ItemArmor)stack.getItem()).armorType;

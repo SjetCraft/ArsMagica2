@@ -167,7 +167,7 @@ public class ArmorHelper{
 	}
 
 	public static ArmorImbuement[] getInfusionsOnArmor(ItemStack stack){
-		if (stack == null || !stack.hasTagCompound() || !(stack.getItem() instanceof ItemArmor))
+		if (stack.isEmpty() || !stack.hasTagCompound() || !(stack.getItem() instanceof ItemArmor))
 			return new ArmorImbuement[0];
 		NBTTagCompound armorProps = (NBTTagCompound)stack.getTagCompound().getTag(AMArmor.NBT_KEY_AMPROPS);
 		if (armorProps != null){
@@ -185,7 +185,7 @@ public class ArmorHelper{
 	}
 
 	public static boolean isInfusionPreset(ItemStack stack, String id){
-		if (stack == null || !stack.hasTagCompound())
+		if (stack.isEmpty() || !stack.hasTagCompound())
 			return false;
 		NBTTagCompound armorProps = (NBTTagCompound)stack.getTagCompound().getTag(AMArmor.NBT_KEY_AMPROPS);
 		if (armorProps != null){
@@ -199,7 +199,7 @@ public class ArmorHelper{
 
 	public static void imbueArmor(ItemStack armorStack, ResourceLocation id, boolean ignoreLevelRequirement){
 		ArmorImbuement imbuement = ImbuementRegistry.instance.getImbuementByID(id);
-		if (armorStack != null && imbuement != null && armorStack.getItem() instanceof ItemArmor){
+		if (armorStack.isEmpty() && imbuement != null && armorStack.getItem() instanceof ItemArmor){
 
 			if (!ignoreLevelRequirement && getArmorLevel(armorStack) < getImbueCost(imbuement.getTier()))
 				return;
@@ -227,7 +227,7 @@ public class ArmorHelper{
 	}
 
 	public static int getArmorLevel(ItemStack stack){
-		if (stack == null || !stack.hasTagCompound())
+		if (stack.isEmpty() || !stack.hasTagCompound())
 			return 0;
 		NBTTagCompound armorProps = (NBTTagCompound)stack.getTagCompound().getTag(AMArmor.NBT_KEY_AMPROPS);
 		if (armorProps != null){
@@ -257,7 +257,7 @@ public class ArmorHelper{
 	}
 
 	public static void deductXPFromArmor(float amt, ItemStack armor){
-		if (armor != null && armor.getItem() instanceof ItemArmor){
+		if (armor.isEmpty() && armor.getItem() instanceof ItemArmor){
 			if (!armor.hasTagCompound())
 				armor.setTagCompound(new NBTTagCompound());
 			NBTTagCompound armorProps = (NBTTagCompound)armor.getTagCompound().getTag(AMArmor.NBT_KEY_AMPROPS);
@@ -270,7 +270,7 @@ public class ArmorHelper{
 	}
 
 	public static void addXPToArmor(float amt, ItemStack armor){
-		if (armor != null && armor.getItem() instanceof ItemArmor){
+		if (armor.isEmpty() && armor.getItem() instanceof ItemArmor){
 			if (!armor.hasTagCompound())
 				armor.setTagCompound(new NBTTagCompound());
 			NBTTagCompound armorProps = (NBTTagCompound)armor.getTagCompound().getTag(AMArmor.NBT_KEY_AMPROPS);

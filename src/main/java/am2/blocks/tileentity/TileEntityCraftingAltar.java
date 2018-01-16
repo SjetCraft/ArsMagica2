@@ -612,7 +612,7 @@ private IBlockState mimicState;
 
 	private void updatePowerRequestData(){
 		ItemStack stack = getNextPlannedItem();
-		if (stack != null && stack.getItem().equals(ItemDefs.etherium)){
+		if (!stack.isEmpty() && stack.getItem().equals(ItemDefs.etherium)){
 			if (switchIsOn()){
 				int flags = stack.getItemDamage();
 				setPowerRequests();
@@ -994,7 +994,7 @@ private IBlockState mimicState;
 			if (addedItem == null)
 				continue;
 			ItemStack stack = new ItemStack(addedItem);
-			if (stack == null)
+			if (stack.isEmpty())
 				continue;
 			this.allAddedItems.add(stack);
 		}
@@ -1005,7 +1005,7 @@ private IBlockState mimicState;
 			if (addedItem == null)
 				continue;
 			ItemStack stack = new ItemStack(addedItem);
-			if (stack == null)
+			if (stack.isEmpty())
 				continue;
 			this.currentAddedItems.add(stack);
 		}

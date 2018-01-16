@@ -87,12 +87,12 @@ public class CraftingEssenceExtractor implements IInventory{
 
 	@Override
 	public ItemStack removeStackFromSlot(int i){
-		if (stackList[i] != null){
+		if (!stackList[i].isEmpty()){
 			ItemStack itemstack = stackList[i];
-			stackList[i] = null;
+			stackList[i] = ItemStack.EMPTY;
 			return itemstack;
 		}else{
-			return null;
+			return ItemStack.EMPTY;
 		}
 	}
 
