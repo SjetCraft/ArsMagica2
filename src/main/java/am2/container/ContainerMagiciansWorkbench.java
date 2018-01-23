@@ -193,7 +193,7 @@ public class ContainerMagiciansWorkbench extends AM2Container{
 			}
 
 			if (itemstack1.getCount() == 0){
-				slot.putStack((ItemStack)null);
+				slot.putStack(ItemStack.EMPTY);
 			}else{
 				slot.onSlotChanged();
 			}

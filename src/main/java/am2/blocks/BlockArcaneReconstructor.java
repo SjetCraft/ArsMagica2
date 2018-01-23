@@ -73,7 +73,7 @@ public class BlockArcaneReconstructor extends BlockAMPowered{
 				float f1 = world.rand.nextFloat() * 0.8F + 0.1F;
 				float f2 = world.rand.nextFloat() * 0.8F + 0.1F;
 				do{
-					if (itemstack.getCount() <= 0){
+					if (itemstack.isEmpty()){
 						break;
 					}
 					int i1 = world.rand.nextInt(21) + 10;

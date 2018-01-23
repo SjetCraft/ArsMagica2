@@ -26,6 +26,8 @@ import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.potion.PotionUtils;
 import net.minecraftforge.common.ForgeModContainer;
 import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.UniversalBucket;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
@@ -46,8 +48,8 @@ public class AMRecipes {
 			'S', "stone"
 		}));
 		
-		ObeliskFuelHelper.instance.registerFuelType(new ItemStack(ItemDefs.itemOre, 0, ItemOre.META_VINTEUM), 200);
-		ObeliskFuelHelper.instance.registerFuelType(UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockDefs.liquid_essence), 2000);
+		ObeliskFuelHelper.instance.registerFuelType(t -> {return t.getItem() == ItemDefs.itemOre && t.getItemDamage() == ItemOre.META_VINTEUM; }, 200);
+		ObeliskFuelHelper.instance.registerFuelType(t -> {return FluidUtil.getFluidContained(t) != null && FluidUtil.getFluidContained(t).isFluidEqual(new FluidStack(BlockDefs.liquid_essence, 1000)); }, 2000);
 		
 		for (AbstractFlickerFunctionality func : ArsMagicaAPI.getFlickerFocusRegistry().getValues()) {
 			if (func != null) {

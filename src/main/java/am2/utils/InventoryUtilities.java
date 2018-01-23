@@ -14,13 +14,13 @@ public class InventoryUtilities{
 	public static int decrementStackQuantity(IInventory inventory, int slotIndex, int quantity){
 		int deducted = 0;
 		ItemStack stack = inventory.getStackInSlot(slotIndex);
-		if (stack != null){
+		if (!stack.isEmpty()){
 			if (stack.getCount() < quantity)
 				quantity = stack.getCount();
 			stack.shrink(quantity);
 			deducted = quantity;
 			if (stack.getCount() <= 0){
-				inventory.setInventorySlotContents(slotIndex, null);
+				inventory.setInventorySlotContents(slotIndex, ItemStack.EMPTY);
 			} else {
 				inventory.setInventorySlotContents(slotIndex, stack);
 			}
@@ -39,7 +39,7 @@ public class InventoryUtilities{
 			if (!inventory.isItemValidForSlot(i, toMerge))
 				continue;
 			ItemStack inventoryStack = inventory.getStackInSlot(i);
-			if (inventoryStack == null){
+			if (inventoryStack.isEmpty()){
 				if (emptySlot == -1)
 					emptySlot = i;
 				continue;
@@ -78,12 +78,12 @@ public class InventoryUtilities{
 			int[] slots = sidedInventory.getSlotsForFace(side);
 			boolean flag = false;
 
-			for (int i = 0; i < slots.length && stack != null && stack.getCount() > 0; ++i){
+			for (int i = 0; i < slots.length && !stack.isEmpty() && stack.getCount() > 0; ++i){
 				//For each slot that can be accessed from this side
 				ItemStack prvStack = sidedInventory.getStackInSlot(slots[i]);
 				if (InventoryUtilities.canInsertItemToInventory(sidedInventory, stack, slots[i], side)){
 					//if the items can be inserted into the current slot
-					if (prvStack == null){
+					if (prvStack.isEmpty()){
 						//if the stack in the slot is null then get the max value that can be moved and transfer the stack to the inventory
 						int max = Math.min(stack.getMaxStackSize(), sidedInventory.getInventoryStackLimit());
 						if (max >= stack.getCount()){
@@ -117,16 +117,16 @@ public class InventoryUtilities{
 	public static boolean deductFromInventory(IInventory inventory, ItemStack search, int quantity){
 		for (int i = 0; i < inventory.getSizeInventory(); ++i){
 			ItemStack inventoryStack = inventory.getStackInSlot(i);
-			if (inventoryStack == null) continue;
+			if (inventoryStack.isEmpty()) continue;
 			if (compareItemStacks(inventoryStack, search, true, false, true, true)){
 				if (search.getCount() <= 0){
-					inventory.setInventorySlotContents(i, null);
+					inventory.setInventorySlotContents(i, ItemStack.EMPTY);
 					return true;
 				}else{
 					quantity -= decrementStackQuantity(inventory, i, quantity);
 					if (quantity <= 0){
-						if (inventory.getStackInSlot(i) != null && inventory.getStackInSlot(i).getCount() <= 0){
-							inventory.setInventorySlotContents(i, null);
+						if (!inventory.getStackInSlot(i).isEmpty() && inventory.getStackInSlot(i).getCount() <= 0){
+							inventory.setInventorySlotContents(i, ItemStack.EMPTY);
 						}
 						return true;
 					}
@@ -140,7 +140,7 @@ public class InventoryUtilities{
 		int qtyFound = 0;
 		for (int i = 0; i < inventory.getSizeInventory(); ++i){
 			ItemStack inventoryStack = inventory.getStackInSlot(i);
-			if (inventoryStack == null) continue;
+			if (inventoryStack.isEmpty()) continue;
 			if (compareItemStacks(inventoryStack, search, true, false, true, true)){
 				qtyFound += inventoryStack.getCount();
 				if (qtyFound >= quantity)
@@ -158,7 +158,7 @@ public class InventoryUtilities{
 
 			for (int i = 0; i < slots.length; i++){
 				ItemStack inventoryStack = inventory.getStackInSlot(slots[i]);
-				if (inventoryStack == null)
+				if (inventoryStack.isEmpty())
 					continue;
 				else if (compareItemStacks(inventoryStack, search, true, false, true, true)){
 					qtyFound += inventoryStack.getCount();
@@ -176,7 +176,7 @@ public class InventoryUtilities{
 	public static int getFirstBlockInInventory(IInventory inventory){
 		for (int i = 0; i < inventory.getSizeInventory(); ++i){
 			ItemStack inventoryStack = inventory.getStackInSlot(i);
-			if (inventoryStack == null) continue;
+			if (inventoryStack.isEmpty()) continue;
 			if (inventoryStack.getItem() instanceof ItemBlock)
 				return i;
 		}
@@ -186,7 +186,7 @@ public class InventoryUtilities{
 	public static boolean isInventoryFull(IInventory inventory){
 		for (int i = 0; i < inventory.getSizeInventory(); ++i){
 			ItemStack inventoryStack = inventory.getStackInSlot(i);
-			if (inventoryStack == null) return false;
+			if (inventoryStack.isEmpty()) return false;
 		}
 		return true;
 	}
@@ -196,7 +196,7 @@ public class InventoryUtilities{
 	 */
 	public static boolean canMergeHappen(IInventory source, IInventory dest){
 		for (int i = 0; i < source.getSizeInventory(); ++i){
-			if (source.getStackInSlot(i) == null) continue;
+			if (source.getStackInSlot(i).isEmpty()) continue;
 			if (inventoryHasRoomFor(dest, source.getStackInSlot(i))){
 				return true;
 			}
@@ -207,7 +207,7 @@ public class InventoryUtilities{
 	public static boolean isInventoryEmpty(IInventory inventory){
 		for (int i = 0; i < inventory.getSizeInventory(); ++i){
 			ItemStack inventoryStack = inventory.getStackInSlot(i);
-			if (inventoryStack != null) return false;
+			if (!inventoryStack.isEmpty()) return false;
 		}
 		return true;
 	}
@@ -219,7 +219,7 @@ public class InventoryUtilities{
 	public static boolean inventoryHasRoomFor(IInventory inventory, ItemStack stack, int qty){
 		for (int i = 0; i < inventory.getSizeInventory(); ++i){
 			ItemStack invStack = inventory.getStackInSlot(i);
-			if (invStack == null)
+			if (invStack.isEmpty())
 				return true;
 			if (compareItemStacks(invStack, stack, true, false, true, true) && invStack.getMaxStackSize() - invStack.getCount() >= qty)
 				return true;
@@ -234,7 +234,7 @@ public class InventoryUtilities{
 
 			for (int i = 0; i < slots.length; i++){
 				ItemStack invStack = inventory.getStackInSlot(slots[i]);
-				if (invStack == null)
+				if (invStack.isEmpty())
 					return true;
 				if (compareItemStacks(invStack, stack, true, false, true, true) && invStack.getMaxStackSize() - invStack.getCount() >= qty)
 					return true;
@@ -249,7 +249,7 @@ public class InventoryUtilities{
 	public static ItemStack getFirstStackInInventory(EntityBroomInventory inventory){
 		for (int i = 0; i < inventory.getSizeInventory(); ++i){
 			ItemStack invStack = inventory.getStackInSlot(i);
-			if (invStack != null){
+			if (!invStack.isEmpty()){
 				return invStack;
 			}
 		}
@@ -263,7 +263,7 @@ public class InventoryUtilities{
 	public static int getInventorySlotIndexFor(IInventory inventory, Item item, int metadata){
 		for (int i = 0; i < inventory.getSizeInventory(); ++i){
 			ItemStack stack = inventory.getStackInSlot(i);
-			if (stack != null && stack.getItem() == item && (stack.getItemDamage() == metadata || metadata == Short.MAX_VALUE))
+			if (!stack.isEmpty() && stack.getItem() == item && (stack.getItemDamage() == metadata || metadata == Short.MAX_VALUE))
 				return i;
 		}
 		return -1;
@@ -272,14 +272,14 @@ public class InventoryUtilities{
 	public static int getInventorySlotIndexFor(IInventory inventory, ItemStack search){
 		for (int i = 0; i < inventory.getSizeInventory(); ++i){
 			ItemStack stack = inventory.getStackInSlot(i);
-			if (stack != null && compareItemStacks(stack, search, false, false, true, true))
+			if (!stack.isEmpty() && compareItemStacks(stack, search, false, false, true, true))
 				return i;
 		}
 		return -1;
 	}
 
 	public static boolean canStacksMerge(ItemStack stack1, ItemStack stack2){
-		if (stack1 == null || stack2 == null)
+		if (stack1.isEmpty() || stack2.isEmpty())
 			return false;
 
 		if (!compareItemStacks(stack1, stack2, true, false, true, true))
@@ -292,7 +292,7 @@ public class InventoryUtilities{
 		int totalCount = 0;
 		for (int i = 0; i < inventory.getSizeInventory(); ++i){
 			ItemStack invStack = inventory.getStackInSlot(i);
-			if (invStack != null && compareItemStacks(invStack, stack, true, false, true, true))
+			if (!invStack.isEmpty() && compareItemStacks(invStack, stack, true, false, true, true))
 				totalCount += invStack.getCount();
 		}
 
@@ -307,7 +307,7 @@ public class InventoryUtilities{
 
 			for (int i = 0; i < slots.length; i++){
 				ItemStack invStack = inventory.getStackInSlot(slots[i]);
-				if (invStack != null && compareItemStacks(invStack, stack, true, false, true, true))
+				if (!invStack.isEmpty() && compareItemStacks(invStack, stack, true, false, true, true))
 					totalCount += invStack.getCount();
 			}
 
@@ -328,12 +328,12 @@ public class InventoryUtilities{
 	public static GetFirstStackStartingFromSlotResult getFirstStackStartingFromSlot(IInventory inventory, ItemStack itemStack, int slot){
 		for (int i = slot; i < inventory.getSizeInventory(); i++){
 			itemStack = inventory.getStackInSlot(i);
-			if (itemStack != null){
+			if (!itemStack.isEmpty()){
 				return new GetFirstStackStartingFromSlotResult(i, itemStack);
 			}
 		}
 
-		return new GetFirstStackStartingFromSlotResult(-1, null);
+		return new GetFirstStackStartingFromSlotResult(-1, ItemStack.EMPTY);
 	}
 
 	public static GetFirstStackStartingFromSlotResult getFirstStackStartingFromSlot(IInventory inventory, ItemStack itemStack, int slot, EnumFacing side){
@@ -343,7 +343,7 @@ public class InventoryUtilities{
 
 			for (int i = slot; i < slots.length; i++){
 				itemStack = inventory.getStackInSlot(slots[i]);
-				if (itemStack != null && canExtractItemFromInventory(sidededInventory, itemStack, slots[i], side)){
+				if (!itemStack.isEmpty() && canExtractItemFromInventory(sidededInventory, itemStack, slots[i], side)){
 					return new GetFirstStackStartingFromSlotResult(i, itemStack);
 				}
 			}
@@ -351,7 +351,7 @@ public class InventoryUtilities{
 			return getFirstStackStartingFromSlot(inventory, itemStack, slot);
 		}
 
-		return new GetFirstStackStartingFromSlotResult(-1, null);
+		return new GetFirstStackStartingFromSlotResult(-1, ItemStack.EMPTY);
 	}
 
 	public static TileEntityChest getAdjacentChest(TileEntityChest chest){
@@ -377,7 +377,7 @@ public class InventoryUtilities{
 	}
 
 	public static boolean compareItemStacks(ItemStack a, ItemStack b, boolean matchMeta, boolean matchStackSize, boolean matchNBT, boolean allowAnyMeta){
-		if (a == null || b == null)
+		if (a.isEmpty() || b.isEmpty())
 			return false;
 
 		if (a.getItem() != b.getItem())

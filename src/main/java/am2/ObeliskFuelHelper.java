@@ -1,24 +1,25 @@
 package am2;
 
 import java.util.HashMap;
+import java.util.Map.Entry;
+
+import com.google.common.base.Predicate;
 
 import am2.api.power.IObeliskFuelHelper;
-import am2.utils.NBTUtils;
 import net.minecraft.item.ItemStack;
 
 public class ObeliskFuelHelper implements IObeliskFuelHelper{
-	private HashMap<ItemStack, Integer> validFuels;
+	private HashMap<Predicate<ItemStack>, Integer> validFuels;
 
 	public static final ObeliskFuelHelper instance = new ObeliskFuelHelper();
 
 	private ObeliskFuelHelper(){
-		validFuels = new HashMap<ItemStack, Integer>();
+		validFuels = new HashMap<Predicate<ItemStack>, Integer>();
 	}
 
 	@Override
-	public void registerFuelType(ItemStack stack, int burnTime){
-		stack.setCount(0);
-		validFuels.put(stack.copy(), burnTime);
+	public void registerFuelType(Predicate<ItemStack> stack, int burnTime){
+		validFuels.put(stack, burnTime);
 	}
 
 	@Override
@@ -26,12 +27,9 @@ public class ObeliskFuelHelper implements IObeliskFuelHelper{
 		if (stack.isEmpty())
 			return 0;
 
-		for (ItemStack possibleFuel : validFuels.keySet()){
-			boolean itemCheck = stack.getItem() == possibleFuel.getItem();
-			boolean metaCheck = possibleFuel.getItemDamage() == Short.MAX_VALUE || possibleFuel.getItemDamage() == stack.getItemDamage();
-			boolean tagCheck = possibleFuel.getTagCompound() == null ? true : (stack.getTagCompound() == null ? false : NBTUtils.contains(possibleFuel.getTagCompound(), stack.getTagCompound()));
-			if (itemCheck && metaCheck && tagCheck)
-				return validFuels.get(possibleFuel);
+		for (Entry<Predicate<ItemStack>, Integer> possibleFuel : validFuels.entrySet()){
+			if (possibleFuel.getKey().apply(stack))
+				return possibleFuel.getValue();
 		}
 		return 0;
 	}

@@ -40,7 +40,7 @@ public class ContainerObelisk extends Container{
 	public ItemStack transferStackInSlot(EntityPlayer par1EntityPlayer, int i){
 		ItemStack itemstack = ItemStack.EMPTY;
 		Slot slot = (Slot)inventorySlots.get(i);
-		if (slot != null && slot.getHasStack()){
+		if (!slot.getHasStack() && slot.getHasStack()){
 			ItemStack itemstack1 = slot.getStack();
 			itemstack = itemstack1.copy();
 			if (i < INVENTORY_STORAGE_START){

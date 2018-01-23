@@ -47,7 +47,7 @@ public class TileEntityFlickerHabitat extends TileEntityFlickerControllerBase im
 	private int inListPosition = 0;
 	private HashMap<Integer, Integer> outListPositions = new HashMap<Integer, Integer>();
 	private int defoutListPosition = 0;
-	private ItemStack flickerJar;
+	private ItemStack flickerJar = ItemStack.EMPTY;
 	private float rotateOffset = 0;
 	private float floatOffset = 0;
 	private boolean floatUp = true;
@@ -86,7 +86,7 @@ public class TileEntityFlickerHabitat extends TileEntityFlickerControllerBase im
 	}
 
 	public Affinity getSelectedAffinity(){
-		if (flickerJar != null){
+		if (!flickerJar.isEmpty()){
 			return ArsMagicaAPI.getAffinityRegistry().getObjectById(flickerJar.getItemDamage());
 		}else{
 			return null;
@@ -94,7 +94,7 @@ public class TileEntityFlickerHabitat extends TileEntityFlickerControllerBase im
 	}
 
 	public boolean hasFlicker(){
-		return flickerJar != null;
+		return !flickerJar.isEmpty();
 	}
 
 	/**
@@ -260,7 +260,7 @@ public class TileEntityFlickerHabitat extends TileEntityFlickerControllerBase im
 		//write out list
 		writeOutList(nbttagcompound);
 
-		if (flickerJar != null){
+		if (!flickerJar.isEmpty()){
 			NBTTagCompound jar = new NBTTagCompound();
 			flickerJar.writeToNBT(jar);
 			nbttagcompound.setTag("flickerJar", jar);

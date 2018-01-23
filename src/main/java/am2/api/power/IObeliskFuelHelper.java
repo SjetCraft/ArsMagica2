@@ -1,5 +1,7 @@
 package am2.api.power;
 
+import com.google.common.base.Predicate;
+
 import net.minecraft.item.ItemStack;
 
 public interface IObeliskFuelHelper{
@@ -9,7 +11,7 @@ public interface IObeliskFuelHelper{
 	 * @param stack    The stack to use as a comparator (stackSize is ignored, just use 1)
 	 * @param burnTime How long the obelisk should burn for when given one of these items
 	 */
-	public void registerFuelType(ItemStack stack, int burnTime);
+	public void registerFuelType(Predicate<ItemStack> stack, int burnTime);
 
 	/**
 	 * Retrieves the burn time for the specified stack.  Returns 0 if it is not a valid fuel.

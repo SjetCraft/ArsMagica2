@@ -180,9 +180,9 @@ public class TileEntityEssenceRefiner extends TileEntityAMPoweredContainer imple
 		
 		ItemStack itemstack = RecipesEssenceRefiner.essenceRefinement().GetResult(getCraftingGridContents(), null);
 		
-		if (itemstack.isEmpty())
+		if (itemstack == null)
 		return false;
-		if (inventory.get(OUTPUT_INDEX).isEmpty())
+		if (inventory.get(OUTPUT_INDEX) == null)
 		return true;
 		if (!inventory.get(OUTPUT_INDEX).isItemEqual(itemstack))
 		return false;

@@ -26,11 +26,11 @@ public abstract class AM2Container extends Container{
 	}
 
 	public ItemStack slotClickGhost(Slot slot, int mouseButton, ClickType clickTypeIn, EntityPlayer player){
-		ItemStack stack = null;
+		ItemStack stack = ItemStack.EMPTY;
 
 		if (mouseButton == 2){
 			if (((IGhostSlot)slot).canAdjust()){
-				slot.putStack(null);
+				slot.putStack(ItemStack.EMPTY);
 			}
 		}else if (mouseButton == 0 || mouseButton == 1){
 			InventoryPlayer playerInv = player.inventory;
@@ -38,15 +38,15 @@ public abstract class AM2Container extends Container{
 			ItemStack stackSlot = slot.getStack();
 			ItemStack stackHeld = playerInv.getItemStack();
 
-			if (stackSlot != null){
+			if (!stackSlot.isEmpty()){
 				stack = stackSlot.copy();
 			}
 
-			if (stackSlot == null){
-				if (stackHeld != null && slot.isItemValid(stackHeld)){
+			if (!stackSlot.isEmpty()){
+				if (!stackHeld.isEmpty() && slot.isItemValid(stackHeld)){
 					fillGhostSlot(slot, stackHeld, mouseButton, clickTypeIn);
 				}
-			}else if (stackHeld == null){
+			}else if (!stackHeld.isEmpty()){
 				adjustGhostSlot(slot, mouseButton, clickTypeIn);
 				slot.onTake(player, playerInv.getItemStack());
 			}else if (slot.isItemValid(stackHeld)){
@@ -81,7 +81,7 @@ public abstract class AM2Container extends Container{
 		stackSlot.setCount(stackSize);
 
 		if (stackSlot.getCount() <= 0){
-			slot.putStack((ItemStack)null);
+			slot.putStack(ItemStack.EMPTY);
 		}
 	}
 
@@ -102,7 +102,7 @@ public abstract class AM2Container extends Container{
 
 	@Override
 	public ItemStack transferStackInSlot(EntityPlayer player, int slotIndex){
-		ItemStack originalStack = null;
+		ItemStack originalStack = ItemStack.EMPTY;
 		Slot slot = (Slot)inventorySlots.get(slotIndex);
 		int numSlots = inventorySlots.size();
 		if (slot != null && slot.getHasStack()){
@@ -112,24 +112,24 @@ public abstract class AM2Container extends Container{
 
 			}else if (slotIndex >= numSlots - 9 * 4 && slotIndex < numSlots - 9){
 				if (!shiftItemStack(stackInSlot, numSlots - 9, numSlots)){
-					return null;
+					return ItemStack.EMPTY;
 				}
 			}else if (slotIndex >= numSlots - 9 && slotIndex < numSlots){
 				if (!shiftItemStack(stackInSlot, numSlots - 9 * 4, numSlots - 9)){
-					return null;
+					return ItemStack.EMPTY;
 				}
 			}else if (!shiftItemStack(stackInSlot, numSlots - 9 * 4, numSlots)){
-				return null;
+				return ItemStack.EMPTY;
 			}
 			slot.onSlotChange(stackInSlot, originalStack);
 			if (stackInSlot.getCount() <= 0){
-				slot.putStack(null);
+				slot.putStack(ItemStack.EMPTY);
 			}else{
 				slot.onSlotChanged();
 			}
 
 			if (stackInSlot.getCount() == originalStack.getCount()){
-				return null;
+				return ItemStack.EMPTY;
 			}
 
 			slot.onTake(player, stackInSlot);
@@ -143,7 +143,7 @@ public abstract class AM2Container extends Container{
 			for (int slotIndex = start; stackToShift.getCount() > 0 && slotIndex < end; slotIndex++){
 				Slot slot = (Slot)inventorySlots.get(slotIndex);
 				ItemStack stackInSlot = slot.getStack();
-				if (stackInSlot != null && InventoryUtilities.canStacksMerge(stackInSlot, stackToShift)){
+				if (!stackInSlot.isEmpty() && InventoryUtilities.canStacksMerge(stackInSlot, stackToShift)){
 					int resultingStackSize = stackInSlot.getCount() + stackToShift.getCount();
 					int max = Math.min(stackToShift.getMaxStackSize(), slot.getSlotStackLimit());
 					if (resultingStackSize <= max){
@@ -165,7 +165,7 @@ public abstract class AM2Container extends Container{
 			for (int slotIndex = start; stackToShift.getCount() > 0 && slotIndex < end; slotIndex++){
 				Slot slot = (Slot)inventorySlots.get(slotIndex);
 				ItemStack stackInSlot = slot.getStack();
-				if (stackInSlot == null){
+				if (stackInSlot == ItemStack.EMPTY){
 					int max = Math.min(stackToShift.getMaxStackSize(), slot.getSlotStackLimit());
 					stackInSlot = stackToShift.copy();
 					stackInSlot.setCount(Math.min(stackToShift.getCount(), max));
@@ -214,7 +214,9 @@ public abstract class AM2Container extends Container{
 	public void detectAndSendChanges(){
 		for (int i = 0; i < this.inventorySlots.size(); ++i)
         {
-            ItemStack itemstack = (((Slot)this.inventorySlots.get(i)).getStack() == null) ? ItemStack.EMPTY :((Slot)this.inventorySlots.get(i)).getStack();
+            ItemStack itemstack = ( ((Slot)this.inventorySlots.get(i)).getStack().isEmpty()) ? 
+            		ItemStack.EMPTY : 
+            			((Slot)this.inventorySlots.get(i)).getStack();
             ItemStack itemstack1 = (ItemStack)this.inventoryItemStacks.get(i);
 
             if (!ItemStack.areItemStacksEqual(itemstack1, itemstack))
