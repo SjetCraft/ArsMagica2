@@ -262,7 +262,7 @@ public class TileEntityArcaneReconstructor extends TileEntityAMPower implements 
 	}
 
 	private boolean itemStackIsValid(ItemStack stack){
-		return stack != null && !(stack.getItem() instanceof ItemBlock) && stack.getItem().isRepairable();
+		return !stack.isEmpty() && !(stack.getItem() instanceof ItemBlock) && stack.getItem().isRepairable();
 	}
 
 	private EntityLiving getDummyEntity(){
@@ -285,14 +285,13 @@ public class TileEntityArcaneReconstructor extends TileEntityAMPower implements 
 			return true;
 		}else{
 			boolean did_copy = false;
-			for (int i = 10; i < 16; ++i){
+			for (int i = 10; i < 16 || !did_copy; ++i){
 				if (inventory.get(i).isEmpty()){
 					if (!world.isRemote){
 						inventory.set(i, inventory.get(SLOT_ACTIVE).copy());
 						inventory.set(SLOT_ACTIVE, ItemStack.EMPTY);
 					}
 					did_copy = true;
-					break;
 				}
 			}
 			world.playSound(pos.getX(), pos.getY(), pos.getZ(), AMSounds.RECONSTRUCTOR_COMPLETE, SoundCategory.BLOCKS, 1.0f, 1.0f, true);
@@ -309,7 +308,7 @@ public class TileEntityArcaneReconstructor extends TileEntityAMPower implements 
 	@Override
 	public ItemStack getStackInSlot(int var1){
 		if (var1 >= inventory.size()){
-			return null;
+			return ItemStack.EMPTY;
 		}
 		return inventory.get(var1);
 	}
@@ -502,32 +501,25 @@ public class TileEntityArcaneReconstructor extends TileEntityAMPower implements 
 
 	@Override
 	public ITextComponent getDisplayName() {
-
 		return null;
 	}
 
 	@Override
 	public int getField(int id) {
-
 		return 0;
 	}
 
 	@Override
-	public void setField(int id, int value) {
-
-		
+	public void setField(int id, int value) {	
 	}
 
 	@Override
 	public int getFieldCount() {
-
 		return 0;
 	}
 
 	@Override
 	public void clear() {
-
-		
 	}
 
 	@Override

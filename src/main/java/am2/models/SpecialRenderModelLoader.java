@@ -40,7 +40,7 @@ public class SpecialRenderModelLoader implements ICustomModelLoader{
 	
 	public class Baked implements IPerspectiveAwareModel {
 		
-		private ItemStack stack = null;
+		private ItemStack stack = ItemStack.EMPTY;
 		private EntityLivingBase entity = null;
 		
 		@Override

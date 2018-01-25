@@ -17,7 +17,7 @@ import net.minecraft.util.EnumFacing;
 
 public class TileEntityCaster extends TileEntityAMPoweredContainer implements IInventory, ITileEntityAMBase{
 	
-	private ItemStack spellStack = null;
+	private ItemStack spellStack = ItemStack.EMPTY;
 	private EntityPlayer caster = null;
 	private String placedByName = null;
 
@@ -72,14 +72,14 @@ public class TileEntityCaster extends TileEntityAMPoweredContainer implements II
 	}
 	
 	public boolean canApply(EntityLivingBase entity) {
-		if (spellStack == null) return false;
+		if (spellStack.isEmpty()) return false;
 		prepForActivate();
 		if (entity.getName().equals(placedByName)) return false;
 		return true;
 	}
 
 	public boolean applySpellEffect(EntityLivingBase target){
-		if (spellStack == null) return false;
+		if (spellStack.isEmpty()) return false;
 		if (!canApply(target)) return false;
 		prepForActivate();
 		SpellUtils.applyStackStage(spellStack, caster, target, target.posX, target.posY, target.posZ, null, world, false, false, 0);
@@ -94,7 +94,7 @@ public class TileEntityCaster extends TileEntityAMPoweredContainer implements II
 	public NBTTagCompound writeToNBT(NBTTagCompound compound){
 		if (placedByName != null)
 			compound.setString("placedByName", placedByName);
-		if (spellStack != null)
+		if (!spellStack.isEmpty())
 			compound.setTag("spellStack", spellStack.writeToNBT(new NBTTagCompound()));
 		compound.setInteger("numTrigger", numTriggers);
 		compound.setBoolean("permanent", isPermanent);

@@ -93,8 +93,8 @@ public class TileEntityCraftingAltar extends TileEntityAMPower implements IMulti
 	private int maxEffects;
 	private boolean dirty = false;
 
-	private ItemStack addedPhylactery = null;
-	private ItemStack addedBindingCatalyst = null;
+	private ItemStack addedPhylactery = ItemStack.EMPTY;
+	private ItemStack addedBindingCatalyst = ItemStack.EMPTY;
 
 	private ItemStack[] spellGuide;
 	private int[] outputCombo;
@@ -519,7 +519,7 @@ private IBlockState mimicState;
 			for (EntityItem item : components){
 				if (item.isDead) continue;
 				ItemStack entityItemStack = item.getEntityItem();
-				if (stack != null && compareItemStacks(stack, entityItemStack)){
+				if (!stack.isEmpty() && compareItemStacks(stack, entityItemStack)){
 					if (!world.isRemote){
 						updateCurrentRecipe(item);
 						item.setDead();
@@ -569,7 +569,7 @@ private IBlockState mimicState;
 						lectern.setNeedsBook(true);
 					}
 				}else{
-					lectern.setTooltipStack(null);
+					lectern.setTooltipStack(ItemStack.EMPTY);
 				}
 				if (spellGuideIsWithinStructurePower()){
 					lectern.setOverpowered(false);
@@ -580,7 +580,7 @@ private IBlockState mimicState;
 				if (isCrafting){
 					lectern.setNeedsBook(true);
 				}
-				lectern.setTooltipStack(null);
+				lectern.setTooltipStack(ItemStack.EMPTY);
 			}
 		}
 	}
@@ -925,13 +925,13 @@ private IBlockState mimicState;
 
 		altarCompound.setTag("currentAddedItems", currentAddedItemsList);
 
-		if (addedPhylactery != null){
+		if (!addedPhylactery.isEmpty()){
 			NBTTagCompound phylactery = new NBTTagCompound();
 			addedPhylactery.writeToNBT(phylactery);
 			altarCompound.setTag("phylactery", phylactery);
 		}
 
-		if (addedBindingCatalyst != null){
+		if (!addedBindingCatalyst.isEmpty()){
 			NBTTagCompound catalyst = new NBTTagCompound();
 			addedBindingCatalyst.writeToNBT(catalyst);
 			altarCompound.setTag("catalyst", catalyst);

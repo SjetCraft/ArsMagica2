@@ -88,7 +88,7 @@ public class TileEntityArmorImbuer extends TileEntityAMPower implements IInvento
 	@Override
 	public ItemStack getStackInSlot(int slot){
 		if (slot >= inventory.size())
-			return null;
+			return ItemStack.EMPTY;
 		return inventory.get(slot);
 	}
 
@@ -106,7 +106,7 @@ public class TileEntityArmorImbuer extends TileEntityAMPower implements IInvento
 			}
 			return itemstack1;
 		}else{
-			return null;
+			return ItemStack.EMPTY;
 		}
 	}
 
@@ -117,14 +117,14 @@ public class TileEntityArmorImbuer extends TileEntityAMPower implements IInvento
 			inventory.set(i, ItemStack.EMPTY);
 			return itemstack;
 		}else{
-			return null;
+			return ItemStack.EMPTY;
 		}
 	}
 
 	@Override
 	public void setInventorySlotContents(int i, ItemStack itemstack){
 		inventory.set(i, itemstack);
-		if (itemstack != null && itemstack.getCount() > getInventoryStackLimit()){
+		if (!itemstack.isEmpty() && itemstack.getCount() > getInventoryStackLimit()){
 			itemstack.setCount(getInventoryStackLimit());
 		}
 	}
