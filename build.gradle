@@ -35,13 +35,13 @@ archivesBaseName = "ArsMagica2"
 
 
 minecraft {
-    version = "1.11.2-13.20.0.2260"
+    version = "1.11.2-13.20.1.2588"
     runDir = "run"
     replace 'GRADLE:BUILD', config.build_number
     replace 'GRADLE:VERSION', config.version
     replaceIn 'ArsMagica2.java'
 	//replace '${version}', project.version
-    mappings = "snapshot_20170324"  //uncomment this line to use newest Forge mappings. Needs a lot of rework.
+    mappings = "snapshot_20170612"  //uncomment this line to use newest Forge mappings. Needs a lot of rework.
 }
 
 jar {
@@ -83,20 +83,22 @@ processResources
         expand 'version':project.version, 'mcversion':project.minecraft.version
     }
         
-    // copy everything else, thats not the mcmod.info
+    // copy everything else, that's not the mcmod.info
     from(sourceSets.main.resources.srcDirs) {
         exclude 'mcmod.info'
     }
 }
 
-task incrementBuildNumber(dependsOn: 'reobfJar') << {
-	config.build_number = (config.build_number.toString().toInteger()) + 1
-	configFile.withWriter {
-		config.toProperties().store(it, "")
-	}
+task incrementBuildNumber(dependsOn: 'reobfJar') {
+	doLast {
+        config.build_number = (config.build_number.toString().toInteger()) + 1
+        configFile.withWriter {
+            config.toProperties().store(it, "")
+        }
+    }
 }
 
-def parseConfig(File config) {
+static def parseConfig(File config) {
 	config.withReader {
 		def prop = new Properties()
 		prop.load(it)
