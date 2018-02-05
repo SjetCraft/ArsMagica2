@@ -23,7 +23,7 @@ import net.minecraft.world.World;
 
 public class TileEntityInertSpawner extends TileEntityAMPower implements ISidedInventory{
 
-	private ItemStack phylactery;
+	private ItemStack phylactery = ItemStack.EMPTY;
 	private float powerConsumed = 0.0f;
 
 	private static final ArrayList<PowerTypes> valid = Lists.newArrayList(PowerTypes.DARK);
