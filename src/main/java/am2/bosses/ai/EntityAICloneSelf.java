@@ -24,7 +24,7 @@ public class EntityAICloneSelf extends EntityAIBase{
 	}
 
 	@Override
-	public boolean continueExecuting(){
+	public boolean shouldContinueExecuting(){
 		if (host.getCurrentAction() == BossActions.CLONE && host.getTicksInCurrentAction() > host.getCurrentAction().getMaxActionTime()){
 			host.setCurrentAction(BossActions.IDLE);
 			cooldownTicks = 200;

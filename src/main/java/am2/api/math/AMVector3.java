@@ -31,9 +31,9 @@ public class AMVector3{
 	}
 
 	public AMVector3(Vec3d vec){
-		this.x = (float)vec.xCoord;
-		this.y = (float)vec.yCoord;
-		this.z = (float)vec.zCoord;
+		this.x = (float)vec.x;
+		this.y = (float)vec.y;
+		this.z = (float)vec.z;
 	}
 
 	public AMVector3(AMVector3 a, AMVector3 b){

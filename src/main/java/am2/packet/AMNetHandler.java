@@ -215,9 +215,9 @@ public class AMNetHandler{
 	public void sendPowerRequestToServer(Vec3d location){
 		AMDataWriter writer = new AMDataWriter();
 		writer.add((byte)1);
-		writer.add((float)location.xCoord);
-		writer.add((float)location.yCoord);
-		writer.add((float)location.zCoord);
+		writer.add((float)location.x);
+		writer.add((float)location.y);
+		writer.add((float)location.z);
 
 		sendPacketToServer(AMPacketIDs.REQUEST_PWR_PATHS, writer.generate());
 	}

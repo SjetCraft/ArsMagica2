@@ -99,7 +99,7 @@ public class TileEntitySlipstreamGenerator extends TileEntityAMPower{
 		AxisAlignedBB bb = new AxisAlignedBB(pos.getX() - tolerance, pos.getY() + 1, pos.getZ() - tolerance, pos.getX() + 1 + tolerance, pos.getY() + 1 + EFFECT_HEIGHT, pos.getZ() + 1 + tolerance);
 		Vec3d myLoc = new Vec3d(pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5);
 		Vec3d playerLoc = new Vec3d(player.posX, player.posY, player.posZ);
-		return bb.intersectsWith(player.getEntityBoundingBox()) && world.rayTraceBlocks(myLoc, playerLoc, true) == null;
+		return bb.intersects(player.getEntityBoundingBox()) && world.rayTraceBlocks(myLoc, playerLoc, true) == null;
 	}
 
 	private void refreshPlayerList(){

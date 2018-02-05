@@ -39,7 +39,7 @@ public class EntityAISummonAllies extends EntityAIBase{
 	}
 
 	@Override
-	public boolean continueExecuting(){
+	public boolean shouldContinueExecuting(){
 		return !hasCasted;
 	}
 

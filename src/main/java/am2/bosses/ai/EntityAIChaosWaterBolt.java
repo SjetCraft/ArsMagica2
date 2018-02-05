@@ -39,7 +39,7 @@ public class EntityAIChaosWaterBolt extends EntityAIBase{
 	}
 
 	@Override
-	public boolean continueExecuting(){
+	public boolean shouldContinueExecuting(){
 		if (host.getCurrentAction() == BossActions.CASTING && host.getTicksInCurrentAction() > 100){
 			host.setCurrentAction(BossActions.IDLE);
 			return false;

@@ -41,8 +41,8 @@ public class AoE extends SpellShape{
 
 		for (Entity e : entities){
 			if (e == caster || e instanceof EntitySpellProjectile) continue;
-			if (e instanceof EntityDragonPart && ((EntityDragonPart)e).entityDragonObj instanceof EntityLivingBase)
-				e = (EntityLivingBase)((EntityDragonPart)e).entityDragonObj;
+			if (e instanceof EntityDragonPart && ((EntityDragonPart)e).parent instanceof EntityLivingBase)
+				e = (EntityLivingBase)((EntityDragonPart)e).parent;
 			if (SpellUtils.applyStageToEntity(stack, caster, world, e, giveXP) == SpellCastResult.SUCCESS)
 				appliedToAtLeastOneEntity = true;
 		}

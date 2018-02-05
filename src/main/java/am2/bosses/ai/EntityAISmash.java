@@ -44,7 +44,7 @@ public class EntityAISmash extends EntityAIBase{
 	}
 
 	@Override
-	public boolean continueExecuting(){
+	public boolean shouldContinueExecuting(){
 		EntityLivingBase AITarget = host.getAttackTarget();
 		if (AITarget != null && host.getDistanceSqToEntity(AITarget) > 4D){
 			if (host.onGround)

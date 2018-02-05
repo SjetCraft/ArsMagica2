@@ -67,9 +67,9 @@ public class EntityUtils {
 		double d = range;
 		Vec3d vec3d = new Vec3d(entityplayer.posX, entityplayer.posY + entityplayer.getEyeHeight(), entityplayer.posZ);
 		Vec3d vec3d1 = entityplayer.getLookVec();
-		Vec3d vec3d2 = vec3d.addVector(vec3d1.xCoord * d, vec3d1.yCoord * d, vec3d1.zCoord * d);
+		Vec3d vec3d2 = vec3d.addVector(vec3d1.x * d, vec3d1.y * d, vec3d1.z * d);
 		double f1 = collideRadius;
-		List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(entityplayer, entityplayer.getEntityBoundingBox().addCoord(vec3d1.xCoord * d, vec3d1.yCoord * d, vec3d1.zCoord * d).expand(f1, f1, f1));
+		List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(entityplayer, entityplayer.getEntityBoundingBox().expand(vec3d1.x * d, vec3d1.y * d, vec3d1.z * d).expand(f1, f1, f1));
 
 		double d2 = 0.0D;
 		for (int i = 0; i < list.size(); i++){
@@ -82,7 +82,7 @@ public class EntityUtils {
 				float f2 = Math.max(0.8F, entity.getCollisionBorderSize());
 				AxisAlignedBB axisalignedbb = entity.getEntityBoundingBox().expand(f2, f2, f2);
 				RayTraceResult movingobjectposition = axisalignedbb.calculateIntercept(vec3d, vec3d2);
-				if (axisalignedbb.isVecInside(vec3d)){
+				if (axisalignedbb.contains(vec3d)){
 					if ((0.0D < d2) || (d2 == 0.0D)){
 						pointedEntity = entity;
 						d2 = 0.0D;
@@ -256,7 +256,7 @@ public class EntityUtils {
 			if (vec3d != null) {
 				Vec3d vec3d1 = living.getLook(1.0F);
 				Vec3d vec3d2 = vec3d.subtractReverse(new Vec3d(living.posX, living.posY, living.posZ)).normalize();
-				vec3d2 = new Vec3d(vec3d2.xCoord, 0.0D, vec3d2.zCoord);
+				vec3d2 = new Vec3d(vec3d2.x, 0.0D, vec3d2.z);
 
 				if (vec3d2.dotProduct(vec3d1) < 0.0D) {
 					return true;
@@ -291,7 +291,7 @@ public class EntityUtils {
 	
 	public static Vec3d correctLook(Vec3d vecIn, Entity entityIn) {
 		if (entityIn instanceof EntityLivingBase && EntityExtension.For((EntityLivingBase) entityIn).isInverted()) {
-			return new Vec3d(-vecIn.xCoord, -vecIn.yCoord, vecIn.zCoord);
+			return new Vec3d(-vecIn.x, -vecIn.y, vecIn.z);
 		}
 		return vecIn;
 	}

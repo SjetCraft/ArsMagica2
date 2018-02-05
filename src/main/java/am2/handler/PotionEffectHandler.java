@@ -122,8 +122,8 @@ public class PotionEffectHandler {
 
 			Vec3d vec = event.getEntityLiving().getLookVec().normalize();
 			yVelocity = 0.4 + (event.getEntityLiving().getActivePotionEffect(PotionEffectsDefs.leap).getAmplifier() * 0.3);
-			xVelocity = velocityTarget.motionX * (Math.pow(2, event.getEntityLiving().getActivePotionEffect(PotionEffectsDefs.leap).getAmplifier())) * Math.abs(vec.xCoord);
-			zVelocity = velocityTarget.motionZ * (Math.pow(2, event.getEntityLiving().getActivePotionEffect(PotionEffectsDefs.leap).getAmplifier())) * Math.abs(vec.zCoord);
+			xVelocity = velocityTarget.motionX * (Math.pow(2, event.getEntityLiving().getActivePotionEffect(PotionEffectsDefs.leap).getAmplifier())) * Math.abs(vec.x);
+			zVelocity = velocityTarget.motionZ * (Math.pow(2, event.getEntityLiving().getActivePotionEffect(PotionEffectsDefs.leap).getAmplifier())) * Math.abs(vec.z);
 
 			float maxHorizontalVelocity = 1.45f;
 

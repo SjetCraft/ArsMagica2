@@ -36,7 +36,7 @@ public class AbilityFluidity extends AbstractAffinityAbility {
 	}
 	
 	private void applyReverseWaterMovement(EntityPlayer entity){
-		AxisAlignedBB par1AxisAlignedBB = entity.getEntityBoundingBox().expand(0.0D, -0.4000000059604645D, 0.0D).contract(0.001D);
+		AxisAlignedBB par1AxisAlignedBB = entity.getEntityBoundingBox().expand(0.0D, -0.4000000059604645D, 0.0D).shrink(0.001D);
 
 		int i = MathHelper.floor(par1AxisAlignedBB.minX);
 		int j = MathHelper.floor(par1AxisAlignedBB.maxX + 1.0D);
@@ -66,9 +66,9 @@ public class AbilityFluidity extends AbstractAffinityAbility {
 		if (vec3.lengthVector() > 0.0D && entity.isInWater()) {
 			vec3 = vec3.normalize();
 			double d1 = -0.014D;
-			entity.motionX += vec3.xCoord * d1;
-			entity.motionY += vec3.yCoord * d1;
-			entity.motionZ += vec3.zCoord * d1;
+			entity.motionX += vec3.x * d1;
+			entity.motionY += vec3.y * d1;
+			entity.motionZ += vec3.z * d1;
 		}
 	}
 
