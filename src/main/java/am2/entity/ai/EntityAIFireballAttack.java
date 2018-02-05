@@ -65,7 +65,7 @@ public class EntityAIFireballAttack extends EntityAIBase{
 	 * Returns whether an in-progress EntityAIBase should continue executing
 	 */
 	@Override
-	public boolean shouldContinueExecuting(){
+	public boolean continueExecuting(){
 		return shouldExecute() || !entityHost.getNavigator().noPath();
 	}
 

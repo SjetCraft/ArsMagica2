@@ -47,7 +47,7 @@ public class GuiSpellImageButton extends GuiButtonVariableDims{
 	@Override
 	public void drawButton(Minecraft par1Minecraft, int par2, int par3){
 		if (this.visible){
-			boolean isMousedOver = par2 >= this.x && par3 >= this.y && par2 < this.x + this.width && par3 < this.y + this.height;
+			boolean isMousedOver = par2 >= this.xPosition && par3 >= this.yPosition && par2 < this.xPosition + this.width && par3 < this.yPosition + this.height;
 			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 			par1Minecraft.renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 
@@ -59,9 +59,9 @@ public class GuiSpellImageButton extends GuiButtonVariableDims{
 			}
 
 			GL11.glDisable(GL11.GL_LIGHTING);
-			this.drawTexturedModelRectFromIcon(this.x, this.y, this.icon, this.width, this.height);
+			this.drawTexturedModelRectFromIcon(this.xPosition, this.yPosition, this.icon, this.width, this.height);
 			if (this.isSelected){
-				this.drawTexturedModelRectFromIcon(this.x, this.y, AMGuiIcons.frame, this.width, this.height);
+				this.drawTexturedModelRectFromIcon(this.xPosition, this.yPosition, AMGuiIcons.frame, this.width, this.height);
 			}
 			GL11.glEnable(GL11.GL_LIGHTING);
 		}

@@ -26,9 +26,9 @@ public class NBTUtils {
 	}
 	
 	public static void writeVecToNBT(Vec3d vec, NBTTagCompound nbt) {
-		nbt.setDouble("X", vec.x);
-		nbt.setDouble("Y", vec.y);
-		nbt.setDouble("Z", vec.z);
+		nbt.setDouble("X", vec.xCoord);
+		nbt.setDouble("Y", vec.yCoord);
+		nbt.setDouble("Z", vec.zCoord);
 	}
 	
 	public static Vec3d readVecFromNBT(NBTTagCompound nbt) {

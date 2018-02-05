@@ -518,7 +518,7 @@ private IBlockState mimicState;
 			ItemStack stack = getNextPlannedItem();
 			for (EntityItem item : components){
 				if (item.isDead) continue;
-				ItemStack entityItemStack = item.getItem();
+				ItemStack entityItemStack = item.getEntityItem();
 				if (!stack.isEmpty() && compareItemStacks(stack, entityItemStack)){
 					if (!world.isRemote){
 						updateCurrentRecipe(item);
@@ -660,7 +660,7 @@ private IBlockState mimicState;
 	}
 
 	private void updateCurrentRecipe(EntityItem item){
-		ItemStack stack = item.getItem();
+		ItemStack stack = item.getEntityItem();
 		addItemToRecipe(stack);
 	}
 
@@ -784,7 +784,7 @@ private IBlockState mimicState;
 		List<Entity> items = this.world.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(pos.getX() - 2, pos.getY() - 3, pos.getZ() - 2, pos.getX() + 2, pos.getY(), pos.getZ() + 2));
 		if (items.size() == 1){
 			EntityItem item = (EntityItem)items.get(0);
-			if (item != null && !item.isDead && item.getItem().getItem() == ItemDefs.blankRune){
+			if (item != null && !item.isDead && item.getEntityItem().getItem() == ItemDefs.blankRune){
 				item.setDead();
 				setCrafting(true);
 			}
@@ -803,7 +803,7 @@ private IBlockState mimicState;
 		List<Entity> items = this.world.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(pos.getX() - radius, pos.getY() - 3, pos.getZ() - radius, pos.getX() + radius, pos.getY(), pos.getZ() + radius));
 		if (items.size() == 1){
 			EntityItem item = (EntityItem)items.get(0);
-			if (item != null && !item.isDead && item.getItem() != null && item.getItem().getItem() == ItemDefs.spellParchment){
+			if (item != null && !item.isDead && item.getEntityItem() != null && item.getEntityItem().getItem() == ItemDefs.spellParchment){
 				if (!world.isRemote){
 					item.setDead();
 					setCrafting(false);
@@ -817,7 +817,7 @@ private IBlockState mimicState;
 					craftStack.getTagCompound().setString("suggestedName", currentSpellName != null ? currentSpellName : "");
 					if (getNextPlannedItem() == null || getNextPlannedItem().getItem() != ItemDefs.spellParchment)
 						craftStack.setTagCompound(null);
-					craftedItem.setItem(craftStack);
+					craftedItem.setEntityItemStack(craftStack);
 					world.spawnEntity(craftedItem);
 					
 					allAddedItems.clear();
@@ -878,7 +878,7 @@ private IBlockState mimicState;
 					continue;
 				EntityItem eItem = new EntityItem(world);
 				eItem.setPosition(pos.getX(), pos.getY() - 1, pos.getZ());
-				eItem.setItem(stack);
+				eItem.setEntityItemStack(stack);
 				world.spawnEntity(eItem);
 			}
 			allAddedItems.clear();

@@ -35,7 +35,7 @@ public class EntityAIShieldBash extends EntityAIBase{
 	}
 
 	@Override
-	public boolean shouldContinueExecuting(){
+	public boolean continueExecuting(){
 		EntityLivingBase AITarget = host.getAttackTarget();
 		if (AITarget == null || AITarget.isDead || (((IArsMagicaBoss)host).getCurrentAction() == BossActions.SHIELD_BASH && ((IArsMagicaBoss)host).getTicksInCurrentAction() > ((IArsMagicaBoss)host).getCurrentAction().getMaxActionTime())){
 			((IArsMagicaBoss)host).setCurrentAction(BossActions.IDLE);

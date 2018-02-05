@@ -130,13 +130,13 @@ public class AMRibbon extends Particle{
 		Vec3d curPt = (Vec3d)pts.elementAt(pts.size() - 2);
 		Vec3d lastPt = (Vec3d)pts.elementAt(pts.size() - 3);
 
-		Vec3d lastMidPt = new Vec3d((curPt.x + lastPt.x) / 2,
-				(curPt.y + lastPt.y) / 2,
-				(curPt.z + lastPt.z) / 2);
+		Vec3d lastMidPt = new Vec3d((curPt.xCoord + lastPt.xCoord) / 2,
+				(curPt.yCoord + lastPt.yCoord) / 2,
+				(curPt.zCoord + lastPt.zCoord) / 2);
 
-		Vec3d midPt = new Vec3d((curPt.x + nextPt.x) / 2,
-				(curPt.y + nextPt.y) / 2,
-				(curPt.z + nextPt.z) / 2);
+		Vec3d midPt = new Vec3d((curPt.xCoord + nextPt.xCoord) / 2,
+				(curPt.yCoord + nextPt.yCoord) / 2,
+				(curPt.zCoord + nextPt.zCoord) / 2);
 
 		/*float width = 0.00003F * (getRelativeViewVector(midPt).length()) * 1.5f;
 		if (width > 0.2f)
@@ -164,9 +164,9 @@ public class AMRibbon extends Particle{
 //	}
 
 	Vec3d getRandPt(){
-		return new Vec3d(ribbonTarget.x + random(-ribbonSeparation, ribbonSeparation),
-				ribbonTarget.y + random(-ribbonSeparation, ribbonSeparation),
-				ribbonTarget.z + random(-ribbonSeparation, ribbonSeparation));
+		return new Vec3d(ribbonTarget.xCoord + random(-ribbonSeparation, ribbonSeparation),
+				ribbonTarget.yCoord + random(-ribbonSeparation, ribbonSeparation),
+				ribbonTarget.zCoord + random(-ribbonSeparation, ribbonSeparation));
 	}
 
 	@Override

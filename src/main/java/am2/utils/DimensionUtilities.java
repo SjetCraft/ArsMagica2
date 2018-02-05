@@ -21,13 +21,13 @@ public class DimensionUtilities{
 
 		if (entity instanceof EntityPlayerMP){
 			EntityPlayerMP player = (EntityPlayerMP)entity;
-			new AMTeleporter(player.mcServer.getWorld(dimension)).teleport(entity);
+			new AMTeleporter(player.mcServer.worldServerForDimension(dimension)).teleport(entity);
 		}else{
 			entity.world.profiler.startSection("changeDimension");
 			MinecraftServer minecraftserver = FMLCommonHandler.instance().getMinecraftServerInstance();
 			int j = entity.dimension;
-			WorldServer worldserver = minecraftserver.getWorld(j);
-			WorldServer worldserver1 = minecraftserver.getWorld(dimension);
+			WorldServer worldserver = minecraftserver.worldServerForDimension(j);
+			WorldServer worldserver1 = minecraftserver.worldServerForDimension(dimension);
 			entity.dimension = dimension;
 			entity.world.removeEntity(entity);
 			entity.isDead = false;

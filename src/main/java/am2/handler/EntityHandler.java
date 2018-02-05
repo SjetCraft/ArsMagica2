@@ -350,8 +350,8 @@ public class EntityHandler {
 			ArsMagica2.proxy.playerTracker.onPlayerDeath((EntityPlayer)e.getEntityLiving());
 		}
 		
-		if (e.getSource() != null && e.getEntityLiving() != null && e.getEntityLiving() instanceof EntityLiving && e.getSource().getTrueSource() instanceof EntityPlayer) {
-			EntityPlayer player = (EntityPlayer) e.getSource().getTrueSource();
+		if (e.getSource() != null && e.getEntityLiving() != null && e.getEntityLiving() instanceof EntityLiving && e.getSource().getEntity() instanceof EntityPlayer) {
+			EntityPlayer player = (EntityPlayer) e.getSource().getEntity();
 			for (int i = 0; i < player.inventory.getSizeInventory(); i++) {
 				ItemStack stack = player.inventory.getStackInSlot(i);
 				if (stack == null || stack.getItem() != ItemDefs.crystalPhylactery) continue;
@@ -363,8 +363,8 @@ public class EntityHandler {
 			}
 		}
 		
-		if (e.getSource() != null && e.getSource().getTrueSource() instanceof EntityLivingBase)
-			target = e.getSource().getTrueSource() != null ? (EntityLivingBase)e.getSource().getTrueSource() : null;
+		if (e.getSource() != null && e.getSource().getEntity() instanceof EntityLivingBase)
+			target = e.getSource().getEntity() != null ? (EntityLivingBase)e.getSource().getEntity() : null;
 		if (type == ContingencyType.DEATH) {
 			SpellUtils.applyStackStage(ext.getContingencyStack(), e.getEntityLiving(), target, e.getEntity().posX, e.getEntity().posY, e.getEntity().posZ, null, e.getEntityLiving().world, false, true, 0);
 			if (ext.getContingencyType() == ContingencyType.DEATH)
@@ -383,7 +383,7 @@ public class EntityHandler {
 					stack.getItem().onDroppedByPlayer(stack, player);
 					EntityExtension.For(player).deductMana(e.getAmount() * 10);
 				} else if (EntityExtension.For(player).hasEnoughtMana(SpellUtils.getManaCost(stack, e.getEntity()))) {
-					EntityLivingBase target = e.getSource().getTrueSource() instanceof EntityLivingBase ? (EntityLivingBase)e.getSource().getTrueSource() : null;
+					EntityLivingBase target = e.getSource().getEntity() instanceof EntityLivingBase ? (EntityLivingBase)e.getSource().getEntity() : null;
 					double posX = target != null ? target.posX : player.posX;
 					double posY = target != null ? target.posY : player.posY;
 					double posZ = target != null ? target.posZ : player.posZ;
@@ -463,7 +463,7 @@ public class EntityHandler {
 			EntityItem animalFat = new EntityItem(event.getEntityLiving().world);
 			ItemStack stack = new ItemStack(ItemDefs.itemOre, 1, ItemOre.META_ANIMALFAT);
 			animalFat.setPosition(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
-			animalFat.setItem(stack);
+			animalFat.setEntityItemStack(stack);
 			event.getDrops().add(animalFat);
 		}
 	}
@@ -492,7 +492,7 @@ public class EntityHandler {
 		if (event.player == null)
 			return;
 
-		if (!event.player.world.isRemote && EntityExtension.For(event.player).getCurrentLevel() <= 0 && event.pickedUp.getItem().getItem() == ItemDefs.arcaneCompendium){
+		if (!event.player.world.isRemote && EntityExtension.For(event.player).getCurrentLevel() <= 0 && event.pickedUp.getEntityItem().getItem() == ItemDefs.arcaneCompendium){
 			event.player.sendMessage(new TextComponentString("You have unlocked the secrets of the arcane!"));
 			AMNetHandler.INSTANCE.sendCompendiumUnlockPacket((EntityPlayerMP)event.player, "shapes", true);
 			AMNetHandler.INSTANCE.sendCompendiumUnlockPacket((EntityPlayerMP)event.player, "components", true);

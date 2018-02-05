@@ -25,8 +25,8 @@ public class Touch extends SpellShape{
 	public SpellCastResult beginStackStage(ItemSpellBase item, ItemStack stack, EntityLivingBase caster, EntityLivingBase target, World world, double x, double y, double z, EnumFacing side, boolean giveXP, int useCount){
 		if (target != null){
 			Entity e = target;
-			if (e instanceof EntityDragonPart && ((EntityDragonPart)e).parent instanceof EntityLivingBase)
-				e = (EntityLivingBase)((EntityDragonPart)e).parent;
+			if (e instanceof EntityDragonPart && ((EntityDragonPart)e).entityDragonObj instanceof EntityLivingBase)
+				e = (EntityLivingBase)((EntityDragonPart)e).entityDragonObj;
 
 			SpellCastResult result = SpellUtils.applyStageToEntity(stack, caster, world, e, giveXP);
 			return result;
@@ -39,15 +39,15 @@ public class Touch extends SpellShape{
 		}else{
 			if (mop.typeOfHit == RayTraceResult.Type.ENTITY){
 				Entity e = mop.entityHit;
-				if (e instanceof EntityDragonPart && ((EntityDragonPart)e).parent instanceof EntityLivingBase)
-					e = (EntityLivingBase)((EntityDragonPart)e).parent;
+				if (e instanceof EntityDragonPart && ((EntityDragonPart)e).entityDragonObj instanceof EntityLivingBase)
+					e = (EntityLivingBase)((EntityDragonPart)e).entityDragonObj;
 				SpellCastResult result = SpellUtils.applyStageToEntity(stack, caster, world, (target == null) ? e : target, giveXP);
 				if (result != SpellCastResult.SUCCESS){
 					return result;
 				}
-				return SpellUtils.applyStackStage(stack, caster, target, mop.hitVec.x, mop.hitVec.y, mop.hitVec.z, null, world, true, giveXP, 0);
+				return SpellUtils.applyStackStage(stack, caster, target, mop.hitVec.xCoord, mop.hitVec.yCoord, mop.hitVec.zCoord, null, world, true, giveXP, 0);
 			}else{
-				SpellCastResult result = SpellUtils.applyStageToGround(stack, caster, world, mop.getBlockPos(), mop.sideHit, mop.hitVec.x, mop.hitVec.y, mop.hitVec.z, giveXP);
+				SpellCastResult result = SpellUtils.applyStageToGround(stack, caster, world, mop.getBlockPos(), mop.sideHit, mop.hitVec.xCoord, mop.hitVec.yCoord, mop.hitVec.zCoord, giveXP);
 				if (result != SpellCastResult.SUCCESS){
 					return result;
 				}

@@ -28,7 +28,7 @@ public class EntityAIPickup extends EntityAIBase{
 		if (target == null || target.isDead)
 			return false;
 
-		return host.hasRoomInInventoryFor(((EntityItem)target).getItem());
+		return host.hasRoomInInventoryFor(((EntityItem)target).getEntityItem());
 	}
 
 	@Override
@@ -39,7 +39,7 @@ public class EntityAIPickup extends EntityAIBase{
 	}
 
 	@Override
-	public boolean shouldContinueExecuting(){
+	public boolean continueExecuting(){
 		return shouldExecute();
 	}
 
@@ -70,7 +70,7 @@ public class EntityAIPickup extends EntityAIBase{
 				resetTask();
 			}
 		}else{
-			host.addItemStackToInventory(((EntityItem)target).getItem());
+			host.addItemStackToInventory(((EntityItem)target).getEntityItem());
 			target.setDead();
 			EntityExtension.For(host).setInanimateTarget(null);
 		}

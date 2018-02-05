@@ -22,7 +22,7 @@ public class EntityAIFlamethrower extends EntityAIBase{
 	}
 
 	@Override
-	public boolean shouldContinueExecuting(){
+	public boolean continueExecuting(){
 		if (host.getAttackTarget() == null || host.getAttackTarget().isDead || ((IArsMagicaBoss)host).getTicksInCurrentAction() > 80){
 			this.cooldownTicks = 40;
 			((IArsMagicaBoss)host).setCurrentAction(BossActions.IDLE);

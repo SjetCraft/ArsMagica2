@@ -34,8 +34,8 @@ public class EntityAIChestDeposit extends EntityAIBase{
 	}
 
 	@Override
-	public boolean shouldContinueExecuting(){
-		return isDepositing || super.shouldContinueExecuting();
+	public boolean continueExecuting(){
+		return isDepositing || super.continueExecuting();
 	}
 
 	@Override

@@ -28,7 +28,7 @@ public class EntityAIPlantGuardianThrowSickle extends EntityAIBase{
 	}
 
 	@Override
-	public boolean shouldContinueExecuting(){
+	public boolean continueExecuting(){
 		EntityLivingBase AITarget = host.getAttackTarget();
 		if (AITarget == null || AITarget.isDead || (host.getCurrentAction() == BossActions.THROWING_SICKLE && host.getTicksInCurrentAction() > host.getCurrentAction().getMaxActionTime())){
 			host.setCurrentAction(BossActions.IDLE);
