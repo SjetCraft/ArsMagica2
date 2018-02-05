@@ -31,14 +31,14 @@ public class ParticleArcToPoint extends ParticleController{
 
 	public ParticleArcToPoint generateControlPoints(){
 		firstControl = new Vec3d(
-				start.x + ((target.x - start.x) / 3),
-				start.y + ((target.y - start.y) / 3),
-				start.z + ((target.z - start.z) / 3));
+				start.xCoord + ((target.xCoord - start.xCoord) / 3),
+				start.yCoord + ((target.yCoord - start.yCoord) / 3),
+				start.zCoord + ((target.zCoord - start.zCoord) / 3));
 
 		secondControl = new Vec3d(
-				start.x + ((target.x - start.x) / 3 * 2),
-				start.y + ((target.y - start.y) / 3 * 2),
-				start.z + ((target.z - start.z) / 3 * 2));
+				start.xCoord + ((target.xCoord - start.xCoord) / 3 * 2),
+				start.yCoord + ((target.yCoord - start.yCoord) / 3 * 2),
+				start.zCoord + ((target.zCoord - start.zCoord) / 3 * 2));
 
 		double offsetX = (particle.getworld().rand.nextFloat() * offsetFactor) - halfOffsetFactor;
 		double offsetZ = (particle.getworld().rand.nextFloat() * offsetFactor) - halfOffsetFactor;
@@ -71,12 +71,12 @@ public class ParticleArcToPoint extends ParticleController{
 			return;
 		}
 		Vec3d bez = MathUtilities.bezier(start, firstControl, secondControl, target, percent);
-		particle.setPosition(bez.x, bez.y, bez.z);
+		particle.setPosition(bez.xCoord, bez.yCoord, bez.zCoord);
 	}
 
 	@Override
 	public ParticleController clone(){
-		return new ParticleArcToPoint(particle, priority, target.x, target.y, target.z, exclusive).SetSpeed(speed).specifyControlPoints(firstControl, secondControl);
+		return new ParticleArcToPoint(particle, priority, target.xCoord, target.yCoord, target.zCoord, exclusive).SetSpeed(speed).specifyControlPoints(firstControl, secondControl);
 	}
 
 }

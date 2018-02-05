@@ -121,13 +121,13 @@ public class EntitySpellProjectile extends Entity {
 				this.setDead();
 			RayTraceResult mop = world.rayTraceBlocks(new Vec3d(posX, posY, posZ),new Vec3d(posX + motionX, posY + motionY, posZ + motionZ));
 			if (mop != null && mop.typeOfHit.equals(RayTraceResult.Type.BLOCK)) {
-				if (world.getBlockState(mop.getBlockPos()).getBlock().causesDownwardCurrent(world, mop.getBlockPos(), mop.sideHit) || targetWater()) {
+				if (world.getBlockState(mop.getBlockPos()).getBlock().isBlockSolid(world, mop.getBlockPos(), mop.sideHit) || targetWater()) {
 					world.getBlockState(mop.getBlockPos()).getBlock().onEntityCollidedWithBlock(world, mop.getBlockPos(), world.getBlockState(mop.getBlockPos()), this);
 					if (getBounces() > 0) {
 						bounce(mop.sideHit);
 					} else {
 						SpellUtils.applyStageToGround(getSpell(), getShooter(), world, mop.getBlockPos(), mop.sideHit, posX, posY, posZ, true);
-						SpellUtils.applyStackStage(getSpell(), getShooter(), null, mop.hitVec.x + motionX, mop.hitVec.y + motionY, mop.hitVec.z + motionZ, mop.sideHit, world, false, true, 0);
+						SpellUtils.applyStackStage(getSpell(), getShooter(), null, mop.hitVec.xCoord + motionX, mop.hitVec.yCoord + motionY, mop.hitVec.zCoord + motionZ, mop.sideHit, world, false, true, 0);
 						if (this.getPierces() == 1 || !SpellUtils.modifierIsPresent(SpellModifiers.PIERCING, this.getSpell()))
 							this.setDead();
 						else
@@ -135,7 +135,7 @@ public class EntitySpellProjectile extends Entity {
 					}
 				}
 			} else {
-				List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(this, getEntityBoundingBox().expand(motionX, motionY, motionZ).expand(0.25D, 0.25D, 0.25D));
+				List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(this, getEntityBoundingBox().addCoord(motionX, motionY, motionZ).expand(0.25D, 0.25D, 0.25D));
 				int effSize = list.size();
 				for (Entity entity : list) {
 					if (entity instanceof EntityLivingBase) {
@@ -143,8 +143,8 @@ public class EntitySpellProjectile extends Entity {
 							effSize--;
 							continue;
 						}
-						if (entity instanceof EntityDragonPart && ((EntityDragonPart)entity).parent instanceof EntityLivingBase)
-							entity = (EntityLivingBase)((EntityDragonPart)entity).parent;
+						if (entity instanceof EntityDragonPart && ((EntityDragonPart)entity).entityDragonObj instanceof EntityLivingBase)
+							entity = (EntityLivingBase)((EntityDragonPart)entity).entityDragonObj;
 						SpellUtils.applyStageToEntity(getSpell(), getShooter(), world, entity, true);
 						SpellUtils.applyStackStage(getSpell(), getShooter(), (EntityLivingBase) entity, entity.posX, entity.posY, entity.posZ, null, world, false, true, 0);
 						break;

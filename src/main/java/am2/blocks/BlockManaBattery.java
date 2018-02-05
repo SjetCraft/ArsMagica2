@@ -177,7 +177,7 @@ public class BlockManaBattery extends BlockAMPowered{
     }
 	
 	@Override
-	public boolean causesDownwardCurrent(IBlockAccess worldIn, BlockPos pos, EnumFacing side) {
+	public boolean isBlockSolid(IBlockAccess worldIn, BlockPos pos, EnumFacing side) {
 		return true;
 	}
 	

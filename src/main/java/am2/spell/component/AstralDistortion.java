@@ -49,7 +49,7 @@ public class AstralDistortion extends SpellComponent implements IRitualInteracti
 					RitualShapeHelper.instance.consumeShape(this, world, pos);
 					EntityItem item = new EntityItem(world);
 					item.setPosition(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
-					item.setItem(new ItemStack(BlockDefs.inertSpawner));
+					item.setEntityItemStack(new ItemStack(BlockDefs.inertSpawner));
 					world.spawnEntity(item);
 				}else{
 

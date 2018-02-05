@@ -61,9 +61,9 @@ public class Projectile extends SpellShape {
 			int projectileBounce = SpellUtils.getModifiedInt_Add(stack, caster, target, world, SpellModifiers.BOUNCE);
 			EntitySpellProjectile projectile = new EntitySpellProjectile(world);
 			projectile.setPosition(caster.posX, caster.getEyeHeight() + caster.posY, caster.posZ);
-			projectile.motionX = caster.getLookVec().x * projectileSpeed;
-			projectile.motionY = caster.getLookVec().y * projectileSpeed;
-			projectile.motionZ = caster.getLookVec().z * projectileSpeed;
+			projectile.motionX = caster.getLookVec().xCoord * projectileSpeed;
+			projectile.motionY = caster.getLookVec().yCoord * projectileSpeed;
+			projectile.motionZ = caster.getLookVec().zCoord * projectileSpeed;
 			if (SpellUtils.modifierIsPresent(SpellModifiers.TARGET_NONSOLID_BLOCKS, stack))
 				projectile.setTargetWater();
 			projectile.setGravity(projectileGravity);

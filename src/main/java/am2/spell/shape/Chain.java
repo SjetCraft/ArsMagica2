@@ -44,8 +44,8 @@ public class Chain extends SpellShape{
 
 		if (mop != null && mop.typeOfHit == RayTraceResult.Type.ENTITY && mop.entityHit != null){
 			Entity e = mop.entityHit;
-			if (e instanceof EntityDragonPart && ((EntityDragonPart)e).parent instanceof EntityLivingBase)
-				e = (EntityLivingBase)((EntityDragonPart)e).parent;
+			if (e instanceof EntityDragonPart && ((EntityDragonPart)e).entityDragonObj instanceof EntityLivingBase)
+				e = (EntityLivingBase)((EntityDragonPart)e).entityDragonObj;
 			if (e instanceof EntityLivingBase){
 				do{
 					targets.add((EntityLivingBase)e);

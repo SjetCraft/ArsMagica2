@@ -89,8 +89,8 @@ public abstract class BlockAMPowered extends BlockAMContainer{
     }
 	
 	@Override
-	public boolean causesDownwardCurrent(IBlockAccess worldIn, BlockPos pos, EnumFacing side) {
-		if (defaultRender) return super.causesDownwardCurrent(worldIn, pos, side);
+	public boolean isBlockSolid(IBlockAccess worldIn, BlockPos pos, EnumFacing side) {
+		if (defaultRender) return super.isBlockSolid(worldIn, pos, side);
 		return true;
 	}
 	

@@ -56,10 +56,10 @@ public class AbilityRelocation extends AbstractAffinityAbility {
 		}
 	
 		Vec3d playerPos = new Vec3d(player.posX, player.posY + player.getEyeHeight(), player.posZ);
-		RayTraceResult result = player.world.rayTraceBlocks(playerPos, playerPos.add(new Vec3d(player.getLookVec().x * 32, player.getLookVec().y * 32, player.getLookVec().z * 32)));
+		RayTraceResult result = player.world.rayTraceBlocks(playerPos, playerPos.add(new Vec3d(player.getLookVec().xCoord * 32, player.getLookVec().yCoord * 32, player.getLookVec().zCoord * 32)));
 		if (result == null)
-			result = new RayTraceResult(playerPos.add(new Vec3d(player.getLookVec().x * 32, player.getLookVec().y * 32, player.getLookVec().z * 32)), null);
-		EnderTeleportEvent event = new EnderTeleportEvent(player, result.hitVec.x, result.hitVec.y, result.hitVec.z, 0.0f);
+			result = new RayTraceResult(playerPos.add(new Vec3d(player.getLookVec().xCoord * 32, player.getLookVec().yCoord * 32, player.getLookVec().zCoord * 32)), null);
+		EnderTeleportEvent event = new EnderTeleportEvent(player, result.hitVec.xCoord, result.hitVec.yCoord, result.hitVec.zCoord, 0.0f);
 		if (MinecraftForge.EVENT_BUS.post(event)) {
 			if (!player.world.isRemote)
 				player.sendMessage(new TextComponentString(I18n.translateToLocal("am2.chat.relocation_failed")));

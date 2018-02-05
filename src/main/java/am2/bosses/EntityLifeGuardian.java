@@ -69,9 +69,9 @@ public class EntityLifeGuardian extends AM2Boss{
 
 	@Override
 	public boolean attackEntityFrom(DamageSource par1DamageSource, float par2){
-		if (par1DamageSource.getImmediateSource() != null && par1DamageSource.getImmediateSource() instanceof EntityLivingBase){
+		if (par1DamageSource.getSourceOfDamage() != null && par1DamageSource.getSourceOfDamage() instanceof EntityLivingBase){
 			for (EntityLivingBase minion : minions.toArray(new EntityLivingBase[minions.size()])){
-				((EntityLiving)minion).setAttackTarget((EntityLivingBase)par1DamageSource.getImmediateSource());
+				((EntityLiving)minion).setAttackTarget((EntityLivingBase)par1DamageSource.getSourceOfDamage());
 			}
 		}
 		return super.attackEntityFrom(par1DamageSource, par2);

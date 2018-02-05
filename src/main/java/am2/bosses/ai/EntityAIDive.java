@@ -24,7 +24,7 @@ public class EntityAIDive extends EntityAIBase{
 	}
 
 	@Override
-	public boolean shouldContinueExecuting(){
+	public boolean continueExecuting(){
 		if (host.getAttackTarget() == null || host.getAttackTarget().isDead || host.getNumHits() >= 3){
 			this.cooldownTicks = 300;
 			((IArsMagicaBoss)host).setCurrentAction(BossActions.IDLE);

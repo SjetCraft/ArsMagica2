@@ -87,7 +87,7 @@ public class EntityItemWatcher{
 	}
 
 	public void addWatchedItem(EntityItem item){
-		if (this.itemsToWatch.contains(item.getItem().getItem())) {
+		if (this.itemsToWatch.contains(item.getEntityItem().getItem())) {
 			watchedItems.add(item);
 		}
 	}
