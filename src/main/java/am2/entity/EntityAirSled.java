@@ -69,7 +69,7 @@ public class EntityAirSled extends EntityLiving{
 					this.setDead();
 					EntityItem item = new EntityItem(world);
 					item.setPosition(posX, posY, posZ);
-					item.setEntityItemStack(ItemDefs.airSledEnchanted.copy());
+					item.setItem(ItemDefs.airSledEnchanted.copy());
 					world.spawnEntity(item);
 				}else{
 					player.startRiding(this);
@@ -175,7 +175,7 @@ public class EntityAirSled extends EntityLiving{
 
 	@Override
 	public boolean attackEntityFrom(DamageSource par1DamageSource, float par2){
-		if (this.getControllingPassenger() != null && !this.getControllingPassenger().isEntityEqual(par1DamageSource.getEntity()))
+		if (this.getControllingPassenger() != null && !this.getControllingPassenger().isEntityEqual(par1DamageSource.getTrueSource()))
 			this.getControllingPassenger().dismountRidingEntity();
 		return false;
 	}

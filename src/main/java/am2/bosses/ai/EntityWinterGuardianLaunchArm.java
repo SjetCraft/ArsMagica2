@@ -44,7 +44,7 @@ public class EntityWinterGuardianLaunchArm extends EntityAIBase{
 	}
 
 	@Override
-	public boolean continueExecuting(){
+	public boolean shouldContinueExecuting(){
 		if (target == null || target.isDead || host.getDistanceSqToEntity(target) < 49D || host.getDistanceSqToEntity(target) > 225D || (host.getCurrentAction() == BossActions.LAUNCHING && host.getTicksInCurrentAction() > host.getCurrentAction().getMaxActionTime())){
 			host.setCurrentAction(BossActions.IDLE);
 			target = null;

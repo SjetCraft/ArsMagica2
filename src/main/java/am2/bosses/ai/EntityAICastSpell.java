@@ -57,7 +57,7 @@ public class EntityAICastSpell<T extends EntityLiving & IArsMagicaBoss> extends 
 	}
 
 	@Override
-	public boolean continueExecuting(){
+	public boolean shouldContinueExecuting(){
 		return !hasCasted && host.getAttackTarget() != null && !host.getAttackTarget().isDead;
 	}
 

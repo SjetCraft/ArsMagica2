@@ -36,7 +36,7 @@ public class AbilityColdBlooded extends AbstractAffinityAbility {
 	
 	@Override
 	public void applyHurt(EntityPlayer player, LivingHurtEvent event, boolean isAttacker) {
-		if (!isAttacker && event.getSource().getEntity() instanceof EntityLivingBase){
+		if (!isAttacker && event.getSource().getTrueSource() instanceof EntityLivingBase){
 			double iceDepth = AffinityData.For(player).getAffinityDepth(Affinity.ICE);
 			BuffEffectFrostSlowed effect = new BuffEffectFrostSlowed(40, 0);
 			if (iceDepth == 1.0f){
@@ -47,7 +47,7 @@ public class AbilityColdBlooded extends AbstractAffinityAbility {
 				effect = new BuffEffectFrostSlowed(100, 1);
 			}
 			if (effect != null){
-				((EntityLivingBase)event.getSource().getEntity()).addPotionEffect(effect);
+				((EntityLivingBase)event.getSource().getTrueSource()).addPotionEffect(effect);
 			}
 		}
 	}

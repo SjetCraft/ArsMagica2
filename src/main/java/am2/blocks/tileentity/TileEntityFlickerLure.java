@@ -54,7 +54,7 @@ public class TileEntityFlickerLure extends TileEntityAMPower{
 			TileEntity westTile = world.getTileEntity(pos.west());
 			TileEntity southTile = world.getTileEntity(pos.south());
 			TileEntity northTile = world.getTileEntity(pos.north());
-			List<EntityFlicker> flickers = world.getEntitiesWithinAABB(EntityFlicker.class, new AxisAlignedBB(pos).expandXyz(5));
+			List<EntityFlicker> flickers = world.getEntitiesWithinAABB(EntityFlicker.class, new AxisAlignedBB(pos).grow(5));
 			for (EntityFlicker flicker : flickers) {
 				IInventory inventory = null;
 				if (northTile != null && northTile instanceof IInventory)

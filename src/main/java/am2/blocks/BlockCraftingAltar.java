@@ -62,7 +62,7 @@ public class BlockCraftingAltar extends BlockContainer {
     }
 	
 	@Override
-	public boolean isBlockSolid(IBlockAccess worldIn, BlockPos pos, EnumFacing side) {
+	public boolean causesDownwardCurrent(IBlockAccess worldIn, BlockPos pos, EnumFacing side) {
 		return true;
 	}
 	

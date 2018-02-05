@@ -240,7 +240,7 @@ public class BlockInvisibleUtility extends BlockAM{
 	public void updateTick(World world, BlockPos pos, IBlockState state, Random rand) {
 		if (getType(state).type == EnumType.LIGHT){
 			float r = 1.5f;
-			List<EntityLivingBase> ents = world.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(pos).expandXyz(r));
+			List<EntityLivingBase> ents = world.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(pos).grow(r));
 			boolean buffNearby = false;
 			for (EntityLivingBase ent : ents){
 				buffNearby |= ent.isPotionActive(PotionEffectsDefs.illumination) ||
@@ -258,7 +258,7 @@ public class BlockInvisibleUtility extends BlockAM{
 	@Override
 	public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
 		if (worldIn.rand.nextInt(10) < 3 && getType(stateIn).type == EnumType.COLLISION){
-			List<Entity> ents = worldIn.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(pos).expandXyz(0.2F));
+			List<Entity> ents = worldIn.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(pos).grow(0.2F));
 			if (ents.size() > 0){
 				spawnBlockParticles(worldIn, pos);
 			}

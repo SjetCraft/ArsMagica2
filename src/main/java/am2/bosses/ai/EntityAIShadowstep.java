@@ -49,9 +49,9 @@ public class EntityAIShadowstep extends AIAnimation{
 		EntityEnderGuardian guardian = getEntity();
 		if (guardian.getAttackTarget() != null){
 			Vec3d facing = guardian.getAttackTarget().getLook(1.0f);
-			double x = guardian.getAttackTarget().posX - facing.xCoord * 3;
+			double x = guardian.getAttackTarget().posX - facing.x * 3;
 			double y = guardian.getAttackTarget().posY;
-			double z = guardian.getAttackTarget().posZ - facing.zCoord * 3;
+			double z = guardian.getAttackTarget().posZ - facing.z * 3;
 
 			guardian.setPosition(x, y, z);
 			guardian.lastTickPosX = x;

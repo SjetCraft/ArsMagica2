@@ -94,7 +94,7 @@ public class FlickerOperatorFishing extends AbstractFlickerFunctionality{
 		//eject the remainder
 		EntityItem item = new EntityItem(world);
 		item.setPosition(pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5);
-		item.setEntityItemStack(stack);
+		item.setItem(stack);
 		world.spawnEntity(item);
 	}
 

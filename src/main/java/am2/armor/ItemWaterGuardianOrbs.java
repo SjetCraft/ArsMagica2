@@ -116,9 +116,9 @@ public class ItemWaterGuardianOrbs extends AMArmor{
 		{
 			vec3d = vec3d.normalize();
 			double d1 = 0.014D;
-			entityIn.motionX -= vec3d.xCoord * d1;
-			entityIn.motionY -= vec3d.yCoord * d1;
-			entityIn.motionZ -= vec3d.zCoord * d1;
+			entityIn.motionX -= vec3d.x * d1;
+			entityIn.motionY -= vec3d.y * d1;
+			entityIn.motionZ -= vec3d.z * d1;
 		}
 
 	}
