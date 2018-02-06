@@ -164,6 +164,7 @@ public class ArsMagicaModelLoader implements ICustomModelLoader {
 				if (name.equals("")) continue;
 				toReturn.add(new ResourceLocation("arsmagica2:" + iconsPrefix + name.replace(".png", "")));
 			}
+			walk.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

@@ -75,6 +75,7 @@ public class SpellRenderer implements ItemMeshDefinition {
                 if (name.equals("")) continue;
                 toReturn.add(new ResourceLocation("arsmagica2:" + iconsPrefix + name.replace(".json", "")));
             }
+            walk.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
