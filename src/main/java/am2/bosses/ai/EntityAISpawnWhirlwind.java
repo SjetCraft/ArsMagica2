@@ -29,7 +29,7 @@ public class EntityAISpawnWhirlwind extends EntityAIBase{
 	}
 
 	@Override
-	public boolean continueExecuting(){
+	public boolean shouldContinueExecuting(){
 		return !hasCasted && host.getAttackTarget() != null && !host.getAttackTarget().isDead;
 	}
 

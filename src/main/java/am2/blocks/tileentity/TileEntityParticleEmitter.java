@@ -62,7 +62,7 @@ public class TileEntityParticleEmitter extends TileEntity implements ITickable{
 		if (!show && !world.isRemote && ((forceShow && showTicks++ > 100) || !forceShow)){
 			showTicks = 0;
 			forceShow = false;
-			for (EntityPlayer player : world.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(pos).expandXyz(8D))) {
+			for (EntityPlayer player : world.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(pos).grow(8D))) {
 				if (player != null && player.inventory.getCurrentItem() != null && player.inventory.getCurrentItem().getItem() == ItemDefs.crystalWrench){
 					AMVector3 myLoc = new AMVector3(pos);
 					AMVector3 playerLoc = new AMVector3(player);

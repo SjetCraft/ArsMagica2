@@ -65,14 +65,14 @@ public class PowerNodeRegistry{
 		World world = te.getWorld();
 		if (powerNodes.containsKey(chunk)){
 			nodeList = powerNodes.get(chunk);
-			LogHelper.trace(String.format("Located Power Node list for chunk %d, %d", chunk.chunkXPos, chunk.chunkZPos));
+			LogHelper.trace(String.format("Located Power Node list for chunk %d, %d", chunk.x, chunk.z));
 		}else{
 			LogHelper.trace("Node list not found.  Checking cache/files for prior data");
 			NBTTagCompound compound = PowerNodeCache.instance.getNBTForChunk(world, chunk);
 			nodeList = new HashMap<Vec3d, PowerNodeEntry>();
 			if (compound == null || !compound.hasKey("AM2PowerData")){
 				powerNodes.put(chunk, nodeList);
-				LogHelper.trace("Prior node list not found.  Created Power Node list for chunk %d, %d", chunk.chunkXPos, chunk.chunkZPos);
+				LogHelper.trace("Prior node list not found.  Created Power Node list for chunk %d, %d", chunk.x, chunk.z);
 			}else{
 				LoadChunkFromNBT(chunk, compound);
 				nodeList = powerNodes.get(chunk);
@@ -81,7 +81,7 @@ public class PowerNodeRegistry{
 					nodeList = new HashMap<Vec3d, PowerNodeEntry>();
 					powerNodes.put(chunk, nodeList);
 				}
-				LogHelper.trace(String.format("Loaded power data for chunk %d, %d", chunk.chunkXPos, chunk.chunkZPos));
+				LogHelper.trace(String.format("Loaded power data for chunk %d, %d", chunk.x, chunk.z));
 			}
 		}
 
@@ -178,13 +178,13 @@ public class PowerNodeRegistry{
 			nodeList = powerNodes.get(chunk);
 			nodeList.remove(location);
 
-			LogHelper.trace("Successfully removed a node from chunk %d, %d", chunk.chunkXPos, chunk.chunkZPos);
+			LogHelper.trace("Successfully removed a node from chunk %d, %d", chunk.x, chunk.z);
 			if (nodeList.size() == 0){
 				powerNodes.remove(chunk);
 				LogHelper.trace("No more nodes exist in chunk.  Removing tracking data for chunk.");
 			}
 		}else{
-			LogHelper.error("Power Node removal requested in a non-tracked chunk (%d, %d)!", chunk.chunkXPos, chunk.chunkZPos);
+			LogHelper.error("Power Node removal requested in a non-tracked chunk (%d, %d)!", chunk.x, chunk.z);
 		}
 	}
 
@@ -360,8 +360,8 @@ public class PowerNodeRegistry{
 
 	private ChunkPos[] getSearchChunks(Vec3d location){
 		//Calculate the chunk X/Z location of the search center
-		int chunkX = (int)location.xCoord >> 4;
-		int chunkZ = (int)location.zCoord >> 4;
+		int chunkX = (int)location.x >> 4;
+		int chunkZ = (int)location.z >> 4;
 
 		ArrayList<ChunkPos> searchChunks = new ArrayList<ChunkPos>();
 		//always search the chunk you're already in!
@@ -375,7 +375,7 @@ public class PowerNodeRegistry{
 				ChunkPos newPair = new ChunkPos(chunkX + i, chunkZ + j);
 				//offset the x/z locations by POWER_SEARCH_RADIUS * i/j respectively and calculate the chunk that would fall in.
 				//If it matches the new chunk coordinates, we add that chunk to the list of chunks to search.
-				if (((int)location.xCoord + (POWER_SEARCH_RADIUS * i)) >> 4 == newPair.chunkXPos && ((int)location.zCoord + (POWER_SEARCH_RADIUS * j)) >> 4 == newPair.chunkZPos){
+				if (((int)location.x + (POWER_SEARCH_RADIUS * i)) >> 4 == newPair.x && ((int)location.z + (POWER_SEARCH_RADIUS * j)) >> 4 == newPair.z){
 					searchChunks.add(newPair);
 				}
 			}
@@ -406,9 +406,9 @@ public class PowerNodeRegistry{
 		NBTTagList powerNodeTagList = new NBTTagList();
 		for (Vec3d location : nodeData.keySet()){
 			NBTTagCompound nodeCompound = new NBTTagCompound();
-			nodeCompound.setInteger("xCoord", (int)location.xCoord);
-			nodeCompound.setInteger("yCoord", (int)location.yCoord);
-			nodeCompound.setInteger("zCoord", (int)location.zCoord);
+			nodeCompound.setInteger("x", (int)location.x);
+			nodeCompound.setInteger("y", (int)location.y);
+			nodeCompound.setInteger("z", (int)location.z);
 			PowerNodeEntry pnd = nodeData.get(location);
 			nodeCompound.setTag("nodeData", pnd.saveToNBT());
 
@@ -451,12 +451,12 @@ public class PowerNodeRegistry{
 
 		@Override
 		public int compare(ChunkPos a, ChunkPos b){
-			if (a.chunkXPos == b.chunkXPos && a.chunkZPos == b.chunkZPos)
+			if (a.x == b.x && a.z == b.z)
 				return 0;
 
-			if (a.chunkXPos > b.chunkXPos)
+			if (a.x > b.x)
 				return 1;
-			else if (a.chunkZPos > b.chunkZPos)
+			else if (a.z > b.z)
 				return 1;
 			return -1;
 		}

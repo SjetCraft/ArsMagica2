@@ -136,7 +136,7 @@ public class EntityManaVortex extends Entity{
 				Vec3d movement = MathUtilities.GetMovementVectorBetweenEntities(e, this);
 				float speed = -0.075f;
 
-				e.addVelocity(movement.xCoord * speed, movement.yCoord * speed, movement.zCoord * speed);
+				e.addVelocity(movement.x * speed, movement.y * speed, movement.z * speed);
 			}
 		}
 	}

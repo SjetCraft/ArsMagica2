@@ -148,8 +148,8 @@ public class EntityEnderGuardian extends AM2Boss implements IAnimatedEntity{
 		
 		//I actually am a cheater, but got here by accident.
 		
-		if (par1DamageSource.getSourceOfDamage() instanceof EntityEnderman){
-			((EntityEnderman)par1DamageSource.getSourceOfDamage()).attackEntityFrom(DamageSources.wtfBoom, 5000);
+		if (par1DamageSource.getImmediateSource() instanceof EntityEnderman){
+			((EntityEnderman)par1DamageSource.getImmediateSource()).attackEntityFrom(DamageSources.wtfBoom, 5000);
 			this.heal(10);
 			return false;
 		}
@@ -168,7 +168,7 @@ public class EntityEnderGuardian extends AM2Boss implements IAnimatedEntity{
 
 		ticksSinceLastAttack = 0;
 
-		if (!world.isRemote && par1DamageSource.getSourceOfDamage() != null && par1DamageSource.getSourceOfDamage() instanceof EntityPlayer){
+		if (!world.isRemote && par1DamageSource.getImmediateSource() != null && par1DamageSource.getImmediateSource() instanceof EntityPlayer){
 			if (par1DamageSource.damageType == this.lastDamageType){
 				hitCount++;
 				if (hitCount > 5)

@@ -31,7 +31,7 @@ public class BlockAMSpecialRender extends BlockAM {
     }
 	
 	@Override
-	public boolean isBlockSolid(IBlockAccess worldIn, BlockPos pos, EnumFacing side) {
+	public boolean causesDownwardCurrent(IBlockAccess worldIn, BlockPos pos, EnumFacing side) {
 		return true;
 	}
 	

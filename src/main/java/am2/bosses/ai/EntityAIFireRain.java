@@ -26,7 +26,7 @@ public class EntityAIFireRain extends EntityAIBase{
 	}
 
 	@Override
-	public boolean continueExecuting(){
+	public boolean shouldContinueExecuting(){
 		return this.cooldownTicks <= 0;
 	}
 

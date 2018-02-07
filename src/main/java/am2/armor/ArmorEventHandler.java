@@ -69,8 +69,8 @@ public class ArmorEventHandler{
 
 	@SubscribeEvent
 	public void onEntityDeath(LivingDeathEvent event){
-		if (event.getSource().getEntity() instanceof EntityPlayer)
-			doXPInfusion((EntityPlayer)event.getSource().getEntity(), 1, Math.min(20, event.getEntityLiving().getMaxHealth()));
+		if (event.getSource().getTrueSource() instanceof EntityPlayer)
+			doXPInfusion((EntityPlayer)event.getSource().getTrueSource(), 1, Math.min(20, event.getEntityLiving().getMaxHealth()));
 
 		if (!(event.getEntityLiving() instanceof EntityPlayer))
 			return;

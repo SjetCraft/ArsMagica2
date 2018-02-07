@@ -46,7 +46,7 @@ public class GuiStatedImageButton extends GuiButtonVariableDims{
 
 	@Override
 	public void drawButton(Minecraft par1Minecraft, int par2, int par3){
-		boolean isMousedOver = par2 >= this.xPosition && par3 >= this.yPosition && par2 < this.xPosition + this.width && par3 < this.yPosition + this.height;
+		boolean isMousedOver = par2 >= this.x && par3 >= this.y && par2 < this.x + this.width && par3 < this.y + this.height;
 		if (!renderBorderOnly){
 			if (currentlyClicked){
 				drawButtonFromState(States.CLICK);
@@ -59,10 +59,10 @@ public class GuiStatedImageButton extends GuiButtonVariableDims{
 			}
 		}else{
 			int color = this.enabled ? 0xFFFFFF : 0x660000;
-			line(this.xPosition, this.yPosition, this.xPosition + this.width, this.yPosition, color);
-			line(this.xPosition + this.width, this.yPosition, this.xPosition + this.width, this.yPosition + this.height, color);
-			line(this.xPosition + this.width, this.yPosition + this.height, this.xPosition, this.yPosition + this.height, color);
-			line(this.xPosition, this.yPosition + this.height, this.xPosition, this.yPosition, color);
+			line(this.x, this.y, this.x + this.width, this.y, color);
+			line(this.x + this.width, this.y, this.x + this.width, this.y + this.height, color);
+			line(this.x + this.width, this.y + this.height, this.x, this.y + this.height, color);
+			line(this.x, this.y + this.height, this.x, this.y, color);
 		}
 
 		if (isMousedOver && this.hoverTextLines.size() > 0){
@@ -75,12 +75,12 @@ public class GuiStatedImageButton extends GuiButtonVariableDims{
 		if (vec == null)
 			vec = this.stateImages.get(States.IDLE);
 
-		drawTexturedModalRect(this.xPosition, this.yPosition, vec.iX, vec.iY, width, height);
+		drawTexturedModalRect(this.x, this.y, vec.iX, vec.iY, width, height);
 	}
 
 	@Override
 	public boolean mousePressed(Minecraft par1Minecraft, int par2, int par3){
-		boolean isMousedOver = par2 >= this.xPosition && par3 >= this.yPosition && par2 < this.xPosition + this.width && par3 < this.yPosition + this.height;
+		boolean isMousedOver = par2 >= this.x && par3 >= this.y && par2 < this.x + this.width && par3 < this.y + this.height;
 		if (isMousedOver)
 			currentlyClicked = true;
 		return super.mousePressed(par1Minecraft, par2, par3);
