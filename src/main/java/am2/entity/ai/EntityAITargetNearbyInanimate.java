@@ -29,7 +29,7 @@ public class EntityAITargetNearbyInanimate extends EntityAITarget{
 	}
 
 	@Override
-	public boolean continueExecuting(){
+	public boolean shouldContinueExecuting(){
 		Entity inanimateTarget = EntityExtension.For(taskOwner).getInanimateTarget();
 
 		if (this.taskOwner.getAttackTarget() != null || inanimateTarget == null || inanimateTarget.isDead){

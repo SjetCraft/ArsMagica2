@@ -51,7 +51,7 @@ public abstract class AM2Boss extends EntityMob implements IEntityMultiPart, IAr
 				@Override
 				public void onUpdate(){
 					super.onUpdate();
-					this.isDead = ((Entity)entityDragonObj).isDead;
+					this.isDead = ((Entity)parent).isDead;
 				}
 
 				@Override
@@ -155,23 +155,23 @@ public abstract class AM2Boss extends EntityMob implements IEntityMultiPart, IAr
 			return false;
 		}
 
-		if (par1DamageSource.getSourceOfDamage() != null){
+		if (par1DamageSource.getImmediateSource() != null){
 
-			if (par1DamageSource.getSourceOfDamage() instanceof EntityPlayer){
-				EntityPlayer player = (EntityPlayer)par1DamageSource.getSourceOfDamage();
+			if (par1DamageSource.getImmediateSource() instanceof EntityPlayer){
+				EntityPlayer player = (EntityPlayer)par1DamageSource.getImmediateSource();
 				if (player.capabilities.isCreativeMode && player.getHeldItemMainhand() != null && player.getHeldItemMainhand().getItem() == ItemDefs.woodenLeg){
 					if (!world.isRemote)
 						this.setDead();
 					return false;
 				}
-			}else if (par1DamageSource.getSourceOfDamage() instanceof EntityArrow){
-				Entity shooter = ((EntityArrow)par1DamageSource.getSourceOfDamage()).shootingEntity;
+			}else if (par1DamageSource.getImmediateSource() instanceof EntityArrow){
+				Entity shooter = ((EntityArrow)par1DamageSource.getImmediateSource()).shootingEntity;
 				if (shooter != null && this.getDistanceSqToEntity(shooter) > 900){
 					this.setPositionAndUpdate(shooter.posX, shooter.posY, shooter.posZ);
 				}
 				return false;
-			}else if (this.getDistanceSqToEntity(par1DamageSource.getSourceOfDamage()) > 900){
-				Entity shooter = (par1DamageSource.getSourceOfDamage());
+			}else if (this.getDistanceSqToEntity(par1DamageSource.getImmediateSource()) > 900){
+				Entity shooter = (par1DamageSource.getImmediateSource());
 				if (shooter != null){
 					this.setPositionAndUpdate(shooter.posX, shooter.posY, shooter.posZ);
 				}

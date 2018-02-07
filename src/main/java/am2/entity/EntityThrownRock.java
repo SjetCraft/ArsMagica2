@@ -143,10 +143,10 @@ public class EntityThrownRock extends EntityLiving{
 	@Override
 	public void onUpdate(){
 		super.onUpdate();
-		if (this.target != null && this.posY > this.target.yCoord){
-			double deltaX = this.posX - target.xCoord;
-			double deltaY = this.posY - target.yCoord;
-			double deltaZ = this.posZ - target.zCoord;
+		if (this.target != null && this.posY > this.target.y){
+			double deltaX = this.posX - target.x;
+			double deltaY = this.posY - target.y;
+			double deltaZ = this.posZ - target.z;
 
 			double angle = Math.atan2(deltaZ, deltaX);
 
@@ -230,10 +230,10 @@ public class EntityThrownRock extends EntityLiving{
 		vec3d = new Vec3d(posX, posY, posZ);
 		vec3d1 = new Vec3d(posX + motionX, posY + motionY, posZ + motionZ);
 		if (movingobjectposition != null){
-			vec3d1 = new Vec3d(movingobjectposition.hitVec.xCoord, movingobjectposition.hitVec.yCoord, movingobjectposition.hitVec.zCoord);
+			vec3d1 = new Vec3d(movingobjectposition.hitVec.x, movingobjectposition.hitVec.y, movingobjectposition.hitVec.z);
 		}
 		Entity entity = null;
-		List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(this, getEntityBoundingBox().addCoord(motionX, motionY, motionZ).expand(1.0D, 1.0D, 1.0D));
+		List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(this, getEntityBoundingBox().expand(motionX, motionY, motionZ).expand(1.0D, 1.0D, 1.0D));
 		double d = 0.0D;
 		for (int j = 0; j < list.size(); j++){
 			Entity entity1 = (Entity)list.get(j);
@@ -308,7 +308,7 @@ public class EntityThrownRock extends EntityLiving{
 					if (this.target == null){
 						this.target = movingobjectposition.hitVec;
 					}
-					this.world.newExplosion(this, this.target.xCoord, this.target.yCoord, this.target.zCoord, 0.8f, false, ArsMagica2.config.moonstoneMeteorsDestroyTerrain());
+					this.world.newExplosion(this, this.target.x, this.target.y, this.target.z, 0.8f, false, ArsMagica2.config.moonstoneMeteorsDestroyTerrain());
 
 					int numOres = rand.nextInt(4) + 1;
 

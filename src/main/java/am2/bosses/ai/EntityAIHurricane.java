@@ -41,7 +41,7 @@ public class EntityAIHurricane extends EntityAIBase{
 	}
 
 	@Override
-	public boolean continueExecuting(){
+	public boolean shouldContinueExecuting(){
 		EntityLivingBase AITarget = ((EntityLiving)host).getAttackTarget();
 		if (host.hitCount >= 10){
 			((IArsMagicaBoss)host).setCurrentAction(BossActions.IDLE);

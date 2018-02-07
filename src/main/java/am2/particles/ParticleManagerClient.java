@@ -74,9 +74,9 @@ public class ParticleManagerClient extends ParticleManagerServer{
 		py -= 0.1000000014901161D;
 		pz -= MathHelper.sin(source.rotationYaw / 180.0F * 3.141593F) * 0.16F;
 		Vec3d vec3d = source.getLookVec().normalize();
-		px += vec3d.xCoord * 0.25D;
-		py += vec3d.yCoord * 0.25D;
-		pz += vec3d.zCoord * 0.25D;
+		px += vec3d.x * 0.25D;
+		py += vec3d.y * 0.25D;
+		pz += vec3d.z * 0.25D;
 		LightningBolt bolt = new LightningBolt(world, px, py, pz, xx, target.getEntityBoundingBox().minY + target.height / 2.0F, zz, world.rand.nextLong(), 6, 0.3F, 6);
 
 		bolt.defaultFractal();
@@ -138,9 +138,9 @@ public class ParticleManagerClient extends ParticleManagerServer{
 		py -= 0.1000000014901161D;
 		pz -= MathHelper.sin(source.rotationYaw / 180.0F * 3.141593F) * 0.16F;
 		Vec3d vec3d = source.getLookVec().normalize();
-		px += vec3d.xCoord * 0.25D;
-		py += vec3d.yCoord * 0.25D;
-		pz += vec3d.zCoord * 0.25D;
+		px += vec3d.x * 0.25D;
+		py += vec3d.y * 0.25D;
+		pz += vec3d.z * 0.25D;
 
 		AMBeam fx = new AMBeam(world, px, py, pz, xx, target.getEntityBoundingBox().minY + target.height / 2.0F, zz);
 		fx.setRGBColor(color);
@@ -198,9 +198,9 @@ public class ParticleManagerClient extends ParticleManagerServer{
 		py -= 0.1000000014901161D;
 		pz -= MathHelper.sin(source.rotationYaw / 180.0F * 3.141593F) * 0.16F;
 		Vec3d vec3d = source.getLookVec().normalize();
-		px += vec3d.xCoord * 0.25D;
-		py += vec3d.yCoord * 0.25D;
-		pz += vec3d.zCoord * 0.25D;
+		px += vec3d.x * 0.25D;
+		py += vec3d.y * 0.25D;
+		pz += vec3d.z * 0.25D;
 		AMRibbon ribbon = new AMRibbon(world, 0.5f, 0.05f, px, py, pz);
 
 		Minecraft.getMinecraft().effectRenderer.addEffect(ribbon);
@@ -561,9 +561,9 @@ public class ParticleManagerClient extends ParticleManagerServer{
 		case 2: //sink
 			return new ParticleFloatUpward(effect, 0.01f, -0.03f * modifier, 1, false);
 		case 3: //orbit
-			return new ParticleOrbitPoint(effect, location.xCoord, location.yCoord, location.zCoord, 1, false).SetOrbitSpeed(0.05f * modifier);
+			return new ParticleOrbitPoint(effect, location.x, location.y, location.z, 1, false).SetOrbitSpeed(0.05f * modifier);
 		case 4: //arc
-			return new ParticleArcToPoint(effect, 1, location.xCoord, location.yCoord, location.zCoord, false).generateControlPoints().SetSpeed(0.02f * modifier);
+			return new ParticleArcToPoint(effect, 1, location.x, location.y, location.z, false).generateControlPoints().SetSpeed(0.02f * modifier);
 		case 5: //flee
 			//return new ParticleFleePoint(effect, location.add(new AMVector3(0.5, 0.5, 0.5)), 0.02f * modifier, 1.5f, 1, false);
 			return new ParticleMoveOnHeading(effect, effect.getworld().rand.nextInt(360), 0, 0.02f * modifier, 1, false);

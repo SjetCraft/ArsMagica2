@@ -137,9 +137,9 @@ public class SpellUtils {
 
 		EntityPlayer dmgSrcPlayer = null;
 
-		if (damagesource.getEntity() != null){
-			if (damagesource.getEntity() instanceof EntityLivingBase){
-				EntityLivingBase source = (EntityLivingBase)damagesource.getEntity();
+		if (damagesource.getTrueSource() != null){
+			if (damagesource.getTrueSource() instanceof EntityLivingBase){
+				EntityLivingBase source = (EntityLivingBase)damagesource.getTrueSource();
 				if ((source instanceof EntityLightMage || source instanceof EntityDarkMage) && target.getClass() == EntityCreeper.class){
 					return false;
 				}else if (source instanceof EntityLightMage && target instanceof EntityLightMage){
@@ -154,8 +154,8 @@ public class SpellUtils {
 					magnitude += 4;
 			}
 
-			if (damagesource.getEntity() instanceof EntityPlayer){
-				dmgSrcPlayer = (EntityPlayer)damagesource.getEntity();
+			if (damagesource.getTrueSource() instanceof EntityPlayer){
+				dmgSrcPlayer = (EntityPlayer)damagesource.getTrueSource();
 				int armorSet = ArmorHelper.getFullArsMagicaArmorSet(dmgSrcPlayer);
 				if (armorSet == ArsMagicaArmorMaterial.MAGE.getMaterialID()){
 					magnitude *= 1.05f;
@@ -223,7 +223,7 @@ public class SpellUtils {
 	private static void dropHead_do(World world, double x, double y, double z, int type){
 		EntityItem item = new EntityItem(world);
 		ItemStack stack = new ItemStack(Items.SKULL, 1, type);
-		item.setEntityItemStack(stack);
+		item.setItem(stack);
 		item.setPosition(x, y, z);
 		world.spawnEntity(item);
 	}

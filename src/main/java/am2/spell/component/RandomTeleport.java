@@ -32,7 +32,7 @@ public class RandomTeleport extends SpellComponent{
 	@Override
 	public boolean applyEffectEntity(ItemStack stack, World world, EntityLivingBase caster, Entity target){
 		Vec3d rLoc = getRandomTeleportLocation(world, stack, caster, target);
-		return teleportTo(rLoc.xCoord, rLoc.yCoord, rLoc.zCoord, target);
+		return teleportTo(rLoc.x, rLoc.y, rLoc.z, target);
 	}
 
 	private Vec3d getRandomTeleportLocation(World world, ItemStack stack, EntityLivingBase caster, Entity target){
