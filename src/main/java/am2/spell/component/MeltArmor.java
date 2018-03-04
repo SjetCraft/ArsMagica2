@@ -46,7 +46,7 @@ public class MeltArmor extends SpellComponent{
 	private void doMeltArmor(EntityLivingBase caster, ItemStack[] armor){
 		double mmpsCharge = getMMPSCharge(armor);
 		for (ItemStack stack : armor){
-			if (stack == null) continue;
+			if (stack.isEmpty()) continue;
 			if (!stack.hasTagCompound() || !stack.getTagCompound().hasKey(mmpsNBTTagName)){
 				stack.damageItem((int)Math.ceil(stack.getItem().getMaxDamage() * 0.25f), caster);
 			}else{
@@ -62,7 +62,7 @@ public class MeltArmor extends SpellComponent{
 	private double getMMPSCharge(ItemStack[] armor){
 		double total = -1;
 		for (ItemStack stack : armor){
-			if (stack != null && stack.hasTagCompound()){
+			if (!stack.isEmpty() && stack.hasTagCompound()){
 				NBTTagCompound subCompound = (NBTTagCompound)stack.getTagCompound().getTag(mmpsNBTTagName);
 				if (subCompound != null && subCompound.hasKey(mmpsChargeTagName)){
 					total += subCompound.getDouble(mmpsChargeTagName);

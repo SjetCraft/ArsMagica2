@@ -359,7 +359,7 @@ public class AMPacketProcessorServer{
 			}else if (stack.getItem() == ItemDefs.spellBook || stack.getItem() == ItemDefs.arcaneSpellbook){
 				ItemStack spellStack = ((ItemSpellBook)stack.getItem()).GetActiveItemStack(stack);
 				SpellUtils.setShapeGroup(spellStack, newShapeGroupOrdinal);
-				((ItemSpellBook)stack.getItem()).replaceAciveItemStack(stack, spellStack);
+				((ItemSpellBook)stack.getItem()).replaceActiveItemStack(stack, spellStack);
 			}
 		}
 	}

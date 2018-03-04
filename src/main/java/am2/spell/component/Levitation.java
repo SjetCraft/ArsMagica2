@@ -137,6 +137,6 @@ public class Levitation extends SpellComponent implements IRitualInteraction{
 	@Override
 	@SideOnly(Side.CLIENT)
 	public ItemStack getResult() {
-		return null;
+		return ItemStack.EMPTY;
 	}
 }

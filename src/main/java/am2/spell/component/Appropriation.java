@@ -68,7 +68,7 @@ public class Appropriation extends SpellComponent{
 			return false;
 
 		ItemStack originalSpellStack = getOriginalSpellStack((EntityPlayer)caster);
-		if (originalSpellStack == null)
+		if (originalSpellStack.isEmpty())
 			return false;
 
 		if (!world.isRemote){
@@ -97,10 +97,10 @@ public class Appropriation extends SpellComponent{
 
 	private void setOriginalSpellStackData(EntityPlayer caster, ItemStack modifiedStack){
 		ItemStack originalSpellStack = caster.getHeldItemMainhand();
-		if (originalSpellStack == null)
+		if (originalSpellStack.isEmpty())
 			return;
 		if (originalSpellStack.getItem() instanceof ItemSpellBook){
-			((ItemSpellBook)originalSpellStack.getItem()).replaceAciveItemStack(originalSpellStack, modifiedStack);
+			((ItemSpellBook)originalSpellStack.getItem()).replaceActiveItemStack(originalSpellStack, modifiedStack);
 		}else{
 			caster.inventory.setInventorySlotContents(caster.inventory.currentItem, modifiedStack);
 		}
@@ -108,7 +108,7 @@ public class Appropriation extends SpellComponent{
 
 	private ItemStack getOriginalSpellStack(EntityPlayer caster){
 		ItemStack originalSpellStack = caster.getHeldItemMainhand();
-		if (originalSpellStack == null)
+		if (originalSpellStack.isEmpty())
 			return null;
 		else if (originalSpellStack.getItem() instanceof ItemSpellBook){
 			originalSpellStack = ((ItemSpellBook)originalSpellStack.getItem()).GetActiveItemStack(originalSpellStack); //it's a spell book - get the active scroll
@@ -121,7 +121,7 @@ public class Appropriation extends SpellComponent{
 				}
 			}
 			if (!hasAppropriation)
-				return null;
+				return ItemStack.EMPTY;
 		}
 
 		return originalSpellStack;
@@ -224,7 +224,7 @@ public class Appropriation extends SpellComponent{
 			return false;
 
 		ItemStack originalSpellStack = getOriginalSpellStack((EntityPlayer)caster);
-		if (originalSpellStack == null){
+		if (originalSpellStack.isEmpty()){
 			return false;
 		}
 

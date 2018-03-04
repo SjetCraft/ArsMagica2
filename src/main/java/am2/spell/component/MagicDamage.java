@@ -42,7 +42,7 @@ public class MagicDamage extends SpellComponent{
 		float mod = 0.0f;
 		if (target instanceof EntityPlayer){
 			for (ItemStack item : ((EntityPlayer)target).inventory.armorInventory){
-				if (item == null)
+				if (item.isEmpty())
 					continue;
 				if (EnchantmentHelper.getEnchantmentLevel(AMEnchantments.magicResist, item) > 0)
 					mod = mod + (0.04f * EnchantmentHelper.getEnchantmentLevel(AMEnchantments.magicResist, item));

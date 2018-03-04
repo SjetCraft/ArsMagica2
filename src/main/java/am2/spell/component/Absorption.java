@@ -134,6 +134,6 @@ public int getReagentSearchRadius(){
 @Override
 @SideOnly(Side.CLIENT)
 public ItemStack getResult() {
-	return null;
+	return ItemStack.EMPTY;
 }
 }

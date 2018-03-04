@@ -114,7 +114,7 @@ public class ItemSpellBook extends ItemArsMagica{
 		return inventoryItems.get(GetActiveSlot(bookStack)).copy();
 	}
 
-	public void replaceAciveItemStack(ItemStack bookStack, ItemStack newstack){
+	public void replaceActiveItemStack(ItemStack bookStack, ItemStack newstack){
 		NonNullList<ItemStack> inventoryItems = getMyInventory(bookStack);
 		int index = GetActiveSlot(bookStack);
 		inventoryItems.set(index, newstack);
